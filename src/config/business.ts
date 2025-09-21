@@ -147,8 +147,8 @@ export const businessConfig: BusinessConfig = {
     primaryColor: "#1e3a8a",
     secondaryColor: "#3b82f6",
     accentColor: "#fbbf24",
-    logo: "/logo.svg",
-    favicon: "/favicon.svg"
+    logo: "./logo.svg",
+    favicon: "./favicon.svg"
   },
   booking: {
     freeQuote: "https://calendar.app.google/KA9sCmb1mqv8m7TH6",

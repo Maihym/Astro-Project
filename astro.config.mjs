@@ -13,7 +13,6 @@ import partytown from '@astrojs/partytown';
 export default defineConfig({
   site: 'https://maihym.github.io',
   base: '/Astro-Project',
-  trailingSlash: 'always',
   integrations: [react(), sitemap(), partytown()],
 
   vite: {

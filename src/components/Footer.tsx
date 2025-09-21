@@ -65,7 +65,7 @@ export default function Footer({ className }: FooterProps) {
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <a href="./" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
               <img 
                 src={businessInfo.branding.logo} 
                 alt={`${companyInfo.name} Logo`} 
@@ -224,16 +224,16 @@ export default function Footer({ className }: FooterProps) {
         {/* Bottom Footer */}
         <div className="py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-muted-foreground">
-            © {currentYear} <a href="/" className="hover:text-primary transition-colors">{companyInfo.name}</a>. All rights reserved.
+            © {currentYear} <a href="./" className="hover:text-primary transition-colors">{companyInfo.name}</a>. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="./privacy" className="text-muted-foreground hover:text-foreground transition-colors">
               Privacy Policy
             </a>
-            <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="./terms" className="text-muted-foreground hover:text-foreground transition-colors">
               Terms of Service
             </a>
-            <a href="/licenses" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a href="./licenses" className="text-muted-foreground hover:text-foreground transition-colors">
               Licenses
             </a>
           </div>

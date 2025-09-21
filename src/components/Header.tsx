@@ -162,7 +162,7 @@ export default function Header({ className }: HeaderProps) {
       <div className="container mx-auto px-4 py-2">
         <div className="flex h-20 sm:h-24 md:h-28 lg:h-32 xl:h-40 items-center justify-between">
           {/* Logo and Company Name */}
-          <a href="/" className="flex items-center space-x-4 p-2 hover:opacity-80 transition-opacity">
+          <a href="./" className="flex items-center space-x-4 p-2 hover:opacity-80 transition-opacity">
             <img 
               src={businessInfo.branding.logo} 
               alt={`${companyInfo.name} Logo`} 
@@ -379,7 +379,7 @@ export default function Header({ className }: HeaderProps) {
                 <div className="flex flex-col space-y-4 mt-8">
                   {/* Mobile Logo */}
                   <a 
-                    href="/" 
+                    href="./" 
                     className="flex items-center space-x-4 p-4 pb-4 border-b hover:opacity-80 transition-opacity"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
