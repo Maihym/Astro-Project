@@ -11,7 +11,7 @@ import partytown from '@astrojs/partytown';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://maihym.github.io',
+  site: 'https://maihym.github.io/Astro-Project',
   base: '/Astro-Project',
   integrations: [react(), sitemap(), partytown()],
 
