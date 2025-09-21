@@ -1,0 +1,114 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllServices, getAllCities } from '../../lib/data';
+import type { Service } from '../../lib/data';
+import { getCompanyInfo } from '../../config/business';
+
+const services = getAllServices();
+const cities = getAllCities();
+const companyInfo = getCompanyInfo();
+---
+
+<Layout title={`Electrical Services | ${companyInfo.name}`} description="Professional electrical services including residential wiring, commercial electrical, and emergency repairs. Licensed electricians serving your area.">
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+          Our Electrical Services
+        </h1>
+        <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          Professional electrical services for residential, commercial, and emergency needs. 
+          Licensed electricians with years of experience serving your community.
+        </p>
+      </div>
+    </section>
+
+    <!-- Services Grid -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service) => (
+            <a href={`/services/${service.slug}`} class="group">
+              <div class="bg-card p-8 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
+                <div class="text-4xl mb-4">{service.icon}</div>
+                <h2 class="text-2xl font-bold mb-4 group-hover:text-primary transition-colors">
+                  {service.title}
+                </h2>
+                <p class="text-muted-foreground mb-6">
+                  {service.shortDescription}
+                </p>
+                <div class="space-y-2 mb-6">
+                  {service.features.slice(0, 3).map((feature) => (
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 bg-primary rounded-full"></span>
+                      <span class="text-sm text-foreground">{feature}</span>
+                    </div>
+                  ))}
+                  {service.features.length > 3 && (
+                    <p class="text-sm text-muted-foreground">
+                      +{service.features.length - 3} more services
+                    </p>
+                  )}
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-lg font-semibold text-primary">Free Quote</span>
+                  </div>
+                  <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Cities We Serve Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Cities We Serve</h2>
+        <p class="text-xl text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
+          We provide professional electrical services in these California cities and surrounding areas.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cities.map((city) => (
+            <a href={`/cities/${city.slug}`} class="group">
+              <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {city.name}, {city.stateAbbr}
+                </h3>
+                <p class="text-muted-foreground mb-4">{city.shortDescription}</p>
+                <div class="space-y-2 mb-4">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                    <span class="text-sm text-foreground">Population: {city.population}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                    <span class="text-sm text-foreground">{city.serviceAreas.length} service areas</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-muted-foreground">View services in {city.name}</span>
+                  <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-primary text-primary-foreground">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Need Help Choosing a Service?</h2>
+        <p class="text-xl mb-8 opacity-90">Our experienced team can help you determine the best electrical solution for your needs.</p>
+        <button class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors">
+          Get Free Consultation
+        </button>
+      </div>
+    </section>
+  </main>
+</Layout>

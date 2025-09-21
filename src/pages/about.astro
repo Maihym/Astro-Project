@@ -1,0 +1,294 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getAllCities } from '../lib/data';
+import { getBusinessInfo, getCompanyInfo, getContactInfo } from '../config/business';
+
+const cities = getAllCities();
+const businessInfo = getBusinessInfo();
+const companyInfo = getCompanyInfo();
+const contactInfo = getContactInfo();
+---
+
+<Layout title={`About Us | ${companyInfo.name}`} description={`Learn about ${companyInfo.name} - your trusted electrical services company serving La Mirada, Whittier, Cerritos and surrounding California areas. Licensed electricians with years of experience.`}>
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+          About {companyInfo.name}
+        </h1>
+        <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          Your trusted electrical services partner serving California communities with professional, reliable, and safe electrical solutions.
+        </p>
+      </div>
+    </section>
+
+    <!-- Company Story Section -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold mb-8">Our Story</h2>
+            <div class="space-y-6 text-lg text-muted-foreground">
+              <p>
+                {companyInfo.name} was founded with a simple mission: to provide exceptional electrical services that keep California homes and businesses safe, efficient, and powered for the future.
+              </p>
+              <p>
+                With years of experience in the electrical industry, our team of licensed electricians has built a reputation for reliability, quality workmanship, and outstanding customer service.
+              </p>
+              <p>
+                We understand that electrical work isn't just about wires and circuits—it's about keeping your family safe, your business running smoothly, and your property protected.
+              </p>
+            </div>
+          </div>
+          <div class="bg-card p-8 rounded-lg border shadow-sm">
+            <h3 class="text-2xl font-semibold mb-6">Why Choose {companyInfo.name}?</h3>
+            <div class="space-y-4">
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">✓</span>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Licensed & Insured</h4>
+                  <p class="text-sm text-muted-foreground">Fully licensed electricians with comprehensive insurance coverage</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">✓</span>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Local Expertise</h4>
+                  <p class="text-sm text-muted-foreground">Deep knowledge of California electrical codes and requirements</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">✓</span>
+                </div>
+                <div>
+                  <h4 class="font-semibold">24/7 Emergency Service</h4>
+                  <p class="text-sm text-muted-foreground">Round-the-clock emergency electrical repair services</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-6 h-6 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">✓</span>
+                </div>
+                <div>
+                  <h4 class="font-semibold">Quality Guarantee</h4>
+                  <p class="text-sm text-muted-foreground">100% satisfaction guarantee on all our electrical work</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services Overview Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Services</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="text-4xl mb-4">🏠</div>
+            <h3 class="text-xl font-semibold mb-4">Residential Services</h3>
+            <p class="text-muted-foreground mb-4">
+              Complete home electrical solutions including wiring, panel upgrades, and safety inspections.
+            </p>
+            <ul class="text-sm text-muted-foreground space-y-1">
+              <li>• New home wiring</li>
+              <li>• Electrical panel upgrades</li>
+              <li>• GFCI outlet installation</li>
+              <li>• Whole house rewiring</li>
+            </ul>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="text-4xl mb-4">🏢</div>
+            <h3 class="text-xl font-semibold mb-4">Commercial Services</h3>
+            <p class="text-muted-foreground mb-4">
+              Professional electrical solutions for businesses, offices, and industrial facilities.
+            </p>
+            <ul class="text-sm text-muted-foreground space-y-1">
+              <li>• Office building wiring</li>
+              <li>• Commercial lighting</li>
+              <li>• Electrical system maintenance</li>
+              <li>• Code compliance inspections</li>
+            </ul>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="text-4xl mb-4">🚨</div>
+            <h3 class="text-xl font-semibold mb-4">Emergency Repairs</h3>
+            <p class="text-muted-foreground mb-4">
+              24/7 emergency electrical repair services for urgent electrical issues and power outages.
+            </p>
+            <ul class="text-sm text-muted-foreground space-y-1">
+              <li>• 24/7 emergency response</li>
+              <li>• Power outage repairs</li>
+              <li>• Electrical fault diagnosis</li>
+              <li>• Safety hazard resolution</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Areas Section -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Areas We Serve</h2>
+        <p class="text-xl text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
+          We proudly serve these California communities and surrounding areas with professional electrical services.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cities.map((city: any) => (
+            <div class="bg-card p-6 rounded-lg border text-center">
+              <h3 class="text-xl font-semibold mb-2">{city.name}, {city.stateAbbr}</h3>
+              <p class="text-muted-foreground mb-4">{city.shortDescription}</p>
+              <div class="space-y-2">
+                <div class="flex items-center justify-center gap-2">
+                  <span class="w-2 h-2 bg-primary rounded-full"></span>
+                  <span class="text-sm text-foreground">Population: {city.population}</span>
+                </div>
+                <div class="flex items-center justify-center gap-2">
+                  <span class="w-2 h-2 bg-primary rounded-full"></span>
+                  <span class="text-sm text-foreground">{city.serviceAreas.length} service areas</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Our Team</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="w-24 h-24 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl">👨‍🔧</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Licensed Electricians</h3>
+            <p class="text-muted-foreground">
+              Our team consists of fully licensed and certified electricians with extensive experience in residential and commercial electrical work.
+            </p>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="w-24 h-24 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl">🎓</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Continuous Training</h3>
+            <p class="text-muted-foreground">
+              We stay current with the latest electrical codes, safety standards, and technological advances through ongoing education and training.
+            </p>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="w-24 h-24 bg-primary/10 rounded-full mx-auto mb-4 flex items-center justify-center">
+              <span class="text-2xl">🤝</span>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Customer Focused</h3>
+            <p class="text-muted-foreground">
+              Our commitment to exceptional customer service ensures every project is completed to your satisfaction with clear communication throughout.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Safety & Quality Section -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h2 class="text-3xl font-bold mb-8">Safety & Quality Standards</h2>
+            <div class="space-y-6">
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">🛡️</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold mb-2">Safety First</h3>
+                  <p class="text-muted-foreground">We prioritize safety in every project, following strict safety protocols and using proper protective equipment.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">📋</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold mb-2">Code Compliance</h3>
+                  <p class="text-muted-foreground">All our work meets or exceeds California electrical codes and local building requirements.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">🔧</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold mb-2">Quality Materials</h3>
+                  <p class="text-muted-foreground">We use only high-quality electrical components and materials from trusted manufacturers.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-4">
+                <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                  <span class="text-primary-foreground text-sm">✅</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold mb-2">Workmanship Guarantee</h3>
+                  <p class="text-muted-foreground">We stand behind our work with comprehensive warranties and satisfaction guarantees.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-card p-8 rounded-lg border shadow-sm">
+            <h3 class="text-2xl font-semibold mb-6">Our Certifications</h3>
+            <div class="space-y-4">
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-primary rounded-full"></span>
+                <span class="text-foreground">California State Electrical License</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-primary rounded-full"></span>
+                <span class="text-foreground">General Liability Insurance</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-primary rounded-full"></span>
+                <span class="text-foreground">Workers' Compensation Insurance</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-primary rounded-full"></span>
+                <span class="text-foreground">Bonded & Insured</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="w-3 h-3 bg-primary rounded-full"></span>
+                <span class="text-foreground">OSHA Safety Certified</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-primary text-primary-foreground">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Work With Us?</h2>
+        <p class="text-xl mb-8 opacity-90">Contact {companyInfo.name} today for professional electrical services you can trust.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button 
+            class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors"
+            onclick="openBooking('freeQuote')"
+          >
+            Get Free Quote
+          </button>
+          <a href="/services" class="border border-primary-foreground text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary-foreground/10 transition-colors">
+            View Our Services
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

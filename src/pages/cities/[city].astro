@@ -1,0 +1,179 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCityBySlug, getAllCities, getAllServices } from '../../lib/data';
+import type { City } from '../../lib/data';
+
+export async function getStaticPaths() {
+  const cities = getAllCities();
+  return cities.map((city) => ({
+    params: { city: city.slug },
+    props: { city },
+  }));
+}
+
+interface Props {
+  city: City;
+}
+
+const { city } = Astro.props;
+const services = getAllServices();
+---
+
+<Layout title={city.seo.title} description={city.seo.description}>
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+          Electrical Services in {city.name}, {city.stateAbbr}
+        </h1>
+        <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          {city.description}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            Get Free Quote
+          </button>
+          <a href="#services-we-offer" class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors inline-block">
+            View Our Services
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- City Info Section -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <div class="grid lg:grid-cols-2 gap-12">
+          <div>
+            <h2 class="text-3xl font-bold mb-8">About {city.name}</h2>
+            <div class="space-y-6">
+              <div>
+                <h3 class="text-xl font-semibold mb-2">Population</h3>
+                <p class="text-muted-foreground">{city.population}</p>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">Area</h3>
+                <p class="text-muted-foreground">{city.area}</p>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">Established</h3>
+                <p class="text-muted-foreground">{city.localInfo.established}</p>
+              </div>
+              <div>
+                <h3 class="text-xl font-semibold mb-2">Nickname</h3>
+                <p class="text-muted-foreground">"{city.localInfo.nickname}"</p>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h2 class="text-3xl font-bold mb-8">Service Areas</h2>
+            <div class="grid grid-cols-2 gap-4">
+              {city.serviceAreas.map((area) => (
+                <div class="bg-card p-4 rounded-lg border">
+                  <h3 class="font-semibold">{area}</h3>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Local Industries Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Major Industries in {city.name}</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {city.localInfo.majorIndustries.map((industry) => (
+            <div class="bg-card p-6 rounded-lg border text-center">
+              <h3 class="text-lg font-semibold">{industry}</h3>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Notable Landmarks Section -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Notable Landmarks</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          {city.localInfo.notableLandmarks.map((landmark) => (
+            <div class="bg-card p-6 rounded-lg border">
+              <h3 class="text-xl font-semibold mb-2">{landmark}</h3>
+              <p class="text-muted-foreground">A significant landmark in {city.name} that we're proud to serve.</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Services We Offer Section -->
+    <section id="services-we-offer" class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Services We Offer in {city.name}</h2>
+        <p class="text-xl text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
+          Professional electrical services available in {city.name}, {city.stateAbbr} and surrounding areas.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service) => (
+            <a href={`/services/${service.slug}/${city.slug}`} class="group">
+              <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
+                <div class="text-4xl mb-4">{service.icon}</div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {service.title} in {city.name}
+                </h3>
+                <p class="text-muted-foreground mb-4">{service.shortDescription}</p>
+                <div class="space-y-2 mb-4">
+                  {service.features.slice(0, 2).map((feature) => (
+                    <div class="flex items-center gap-2">
+                      <span class="w-2 h-2 bg-primary rounded-full"></span>
+                      <span class="text-sm text-foreground">{feature}</span>
+                    </div>
+                  ))}
+                  {service.features.length > 2 && (
+                    <p class="text-sm text-muted-foreground">
+                      +{service.features.length - 2} more features
+                    </p>
+                  )}
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-lg font-bold text-primary">Free Quote</span>
+                    <span class="text-muted-foreground">Available</span>
+                  </div>
+                  <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="py-16 px-4 bg-primary text-primary-foreground">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Contact Our {city.name} Office</h2>
+        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Phone</h3>
+            <p class="opacity-90">{city.contact.phone}</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Email</h3>
+            <p class="opacity-90">{city.contact.email}</p>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-2">Address</h3>
+            <p class="opacity-90">{city.contact.address}</p>
+          </div>
+        </div>
+        <button class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors mt-8">
+          Get Free Quote
+        </button>
+      </div>
+    </section>
+  </main>
+</Layout>

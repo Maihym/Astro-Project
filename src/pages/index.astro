@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCompanyInfo } from '../config/business';
+
+const companyInfo = getCompanyInfo();
+---
+
+<Layout>
+	<main class="min-h-screen bg-background">
+		<!-- Hero Section -->
+		<section class="py-20 px-4">
+			<div class="container mx-auto text-center">
+				<h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+					Professional Electrical Services
+				</h1>
+				<p class="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+					{companyInfo.name} provides reliable, licensed electrical services for residential and commercial properties. 
+					Quality workmanship you can trust.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<button 
+						class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+						onclick="openBooking('freeQuote')"
+					>
+						Get Free Quote
+					</button>
+					<button class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors">
+						View Services
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Features Section -->
+		<section class="py-16 px-4 bg-muted/30">
+			<div class="container mx-auto">
+				<h2 class="text-3xl font-bold text-center mb-12">Why Choose {companyInfo.name}?</h2>
+				<div class="grid md:grid-cols-3 gap-8">
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">⚡</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Licensed & Insured</h3>
+						<p class="text-muted-foreground">Fully licensed electricians with comprehensive insurance coverage for your peace of mind.</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">🛠️</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Quality Workmanship</h3>
+						<p class="text-muted-foreground">We use only the highest quality materials and follow industry best practices.</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">📞</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">24/7 Emergency Service</h3>
+						<p class="text-muted-foreground">Available around the clock for emergency electrical repairs and urgent situations.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- CTA Section -->
+		<section class="py-16 px-4">
+			<div class="container mx-auto text-center">
+				<h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+				<p class="text-xl text-muted-foreground mb-8">Contact us today for a free consultation and quote.</p>
+				<button 
+					class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+					onclick="openBooking('freeQuote')"
+				>
+					Get Free Quote
+				</button>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+
+
+
+
+
+

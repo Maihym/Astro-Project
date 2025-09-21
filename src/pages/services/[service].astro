@@ -1,0 +1,149 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getServiceBySlug, getAllServices, getAllCities } from '../../lib/data';
+import type { Service } from '../../lib/data';
+
+export async function getStaticPaths() {
+  const services = getAllServices();
+  return services.map((service) => ({
+    params: { service: service.slug },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: Service;
+}
+
+const { service } = Astro.props;
+const cities = getAllCities();
+---
+
+<Layout title={service.seo.title} description={service.seo.description}>
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+      <div class="container mx-auto text-center">
+        <div class="text-6xl mb-6">{service.icon}</div>
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+          {service.title}
+        </h1>
+        <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          {service.description}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            Get Free Quote
+          </button>
+          <a href="#cities-we-serve" class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors inline-block">
+            View Cities We Serve
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">What We Offer</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {service.features.map((feature) => (
+            <div class="bg-card p-6 rounded-lg border shadow-sm">
+              <h3 class="text-xl font-semibold mb-2">{feature}</h3>
+              <p class="text-muted-foreground">Professional installation and service for {feature.toLowerCase()}.</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Why Choose Our {service.title} Services?</h2>
+        <div class="grid md:grid-cols-2 gap-8">
+          {service.benefits.map((benefit) => (
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <span class="text-primary-foreground text-sm">✓</span>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{benefit}</h3>
+                <p class="text-muted-foreground">Experience the difference with our professional approach to {service.title.toLowerCase()}.</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Cities We Serve Section -->
+    <section id="cities-we-serve" class="py-16 px-4">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">Cities We Serve</h2>
+        <p class="text-xl text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
+          We provide {service.title.toLowerCase()} services in these California cities and surrounding areas.
+        </p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cities.map((city) => (
+            <a href={`/services/${service.slug}/${city.slug}`} class="group">
+              <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {service.title} in {city.name}
+                </h3>
+                <p class="text-muted-foreground mb-4">{city.state}</p>
+                <div class="space-y-2 mb-4">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                    <span class="text-sm text-foreground">Population: {city.population}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                    <span class="text-sm text-foreground">{city.serviceAreas.length} service areas</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-sm text-muted-foreground">Get {service.title.toLowerCase()} in {city.name}</span>
+                  <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Free Quote Section -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-8">Get Your Free Quote</h2>
+        <div class="bg-card p-8 rounded-lg border shadow-sm max-w-md mx-auto">
+          <h3 class="text-2xl font-semibold mb-4">No Obligation</h3>
+          <p class="text-muted-foreground mb-6">
+            Contact us for a detailed, free estimate tailored to your specific {service.title.toLowerCase()} needs.
+          </p>
+          <button 
+            class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors w-full"
+            onclick="openBooking('freeQuote')"
+          >
+            Get Your Free Quote
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-primary text-primary-foreground">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+        <p class="text-xl mb-8 opacity-90">Contact us today for professional {service.title.toLowerCase()} services.</p>
+        <button 
+          class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors"
+          onclick="openBooking('freeQuote')"
+        >
+          Get Free Quote
+        </button>
+      </div>
+    </section>
+  </main>
+</Layout>

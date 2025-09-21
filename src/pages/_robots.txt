@@ -1,0 +1,10 @@
+---
+import { getSocialLinks } from '../config/business';
+
+const socialLinks = getSocialLinks();
+---
+
+User-agent: *
+Allow: /
+
+Sitemap: {socialLinks.website}/sitemap.xml

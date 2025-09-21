@@ -1,0 +1,97 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllCities } from '../../lib/data';
+import type { City } from '../../lib/data';
+import { getCompanyInfo } from '../../config/business';
+
+const cities = getAllCities();
+const companyInfo = getCompanyInfo();
+---
+
+<Layout title={`Cities We Serve | ${companyInfo.name}`} description="Professional electrical services in multiple cities across California. Licensed electricians serving La Mirada, Whittier, Cerritos and surrounding areas.">
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+          Cities We Serve
+        </h1>
+        <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          Professional electrical services across California. Licensed electricians serving 
+          residential and commercial properties in multiple cities and surrounding areas.
+        </p>
+      </div>
+    </section>
+
+    <!-- Cities Grid -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {cities.map((city) => (
+            <a href={`/cities/${city.slug}`} class="group">
+              <div class="bg-card p-8 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
+                <h2 class="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {city.name}
+                </h2>
+                <p class="text-lg text-muted-foreground mb-4">{city.state}</p>
+                <p class="text-muted-foreground mb-6">
+                  {city.shortDescription}
+                </p>
+                <div class="space-y-2 mb-6">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                    <span class="text-sm text-foreground">Population: {city.population}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                    <span class="text-sm text-foreground">Area: {city.area}</span>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 bg-primary rounded-full"></span>
+                    <span class="text-sm text-foreground">Established: {city.localInfo.established}</span>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <span class="text-sm text-muted-foreground">{city.serviceAreas.length} service areas</span>
+                  </div>
+                  <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Areas Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">All Service Areas</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {cities.map((city) => (
+            <div class="bg-card p-6 rounded-lg border">
+              <h3 class="text-xl font-semibold mb-4">{city.name}, {city.stateAbbr}</h3>
+              <div class="grid grid-cols-1 gap-2">
+                {city.serviceAreas.map((area) => (
+                  <span class="text-sm text-muted-foreground">• {area}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-primary text-primary-foreground">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Don't See Your City?</h2>
+        <p class="text-xl mb-8 opacity-90">We may still serve your area! Contact us to find out about our service coverage.</p>
+        <button class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors">
+          Check Service Availability
+        </button>
+      </div>
+    </section>
+  </main>
+</Layout>

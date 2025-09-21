@@ -1,0 +1,321 @@
+---
+import { getBusinessInfo, getContactInfo, getCompanyInfo, getHoursInfo } from '../config/business'
+
+const businessInfo = getBusinessInfo()
+const contactInfo = getContactInfo()
+const companyInfo = getCompanyInfo()
+const hoursInfo = getHoursInfo()
+---
+
+<div id="container">
+	<main>
+		<section id="hero">
+			<div class="logo">
+				<h1 class="company-name">{companyInfo.name}</h1>
+				<p class="tagline">{companyInfo.tagline}</p>
+			</div>
+			
+			<div class="hero-content">
+				<h2>Professional Electrical Services</h2>
+				<p class="hero-description">
+					{companyInfo.description}
+				</p>
+				
+				<section id="cta-buttons">
+					<a class="button primary" href="#contact">Get Free Quote</a>
+					<a class="button secondary" href="#services">Our Services</a>
+				</section>
+			</div>
+		</section>
+
+		<section id="services" class="services-section">
+			<h3>Our Services</h3>
+			<div class="services-grid">
+				<div class="service-card">
+					<div class="service-icon">⚡</div>
+					<h4>Residential</h4>
+					<p>Home wiring, outlets, lighting, and electrical panel upgrades</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">🏢</div>
+					<h4>Commercial</h4>
+					<p>Office buildings, retail spaces, and industrial electrical systems</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">🔧</div>
+					<h4>Repairs</h4>
+					<p>Emergency repairs, troubleshooting, and maintenance services</p>
+				</div>
+				<div class="service-card">
+					<div class="service-icon">💡</div>
+					<h4>Installations</h4>
+					<p>New construction, renovations, and electrical system upgrades</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="contact" class="contact-section">
+			<div class="contact-info">
+				<h3>Ready to Get Started?</h3>
+				<p>Contact us today for a free consultation and quote</p>
+				<div class="contact-methods">
+					<div class="contact-method">
+						<strong>Phone:</strong> {contactInfo.main.phone}
+					</div>
+					<div class="contact-method">
+						<strong>Email:</strong> {contactInfo.main.email}
+					</div>
+					<div class="contact-method">
+						<strong>Hours:</strong> {hoursInfo.regular.weekdays}
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</div>
+
+<style>
+	#container {
+		font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+		min-height: 100vh;
+		background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+		color: white;
+	}
+
+	main {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 20px;
+	}
+
+	/* Hero Section */
+	#hero {
+		text-align: center;
+		padding: 80px 0 60px;
+	}
+
+	.logo {
+		margin-bottom: 40px;
+	}
+
+	.company-name {
+		font-size: 3.5rem;
+		font-weight: 700;
+		margin: 0;
+		background: linear-gradient(45deg, #fbbf24, #f59e0b);
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		background-clip: text;
+		text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+	}
+
+	.tagline {
+		font-size: 1.25rem;
+		margin: 10px 0 0;
+		color: #e5e7eb;
+		font-weight: 300;
+	}
+
+	.hero-content h2 {
+		font-size: 2.5rem;
+		font-weight: 600;
+		margin: 0 0 20px;
+		color: white;
+	}
+
+	.hero-description {
+		font-size: 1.2rem;
+		line-height: 1.6;
+		margin: 0 0 40px;
+		color: #e5e7eb;
+		max-width: 600px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	/* CTA Buttons */
+	#cta-buttons {
+		display: flex;
+		gap: 20px;
+		justify-content: center;
+		flex-wrap: wrap;
+	}
+
+	.button {
+		display: inline-block;
+		padding: 15px 30px;
+		border-radius: 8px;
+		text-decoration: none;
+		font-weight: 600;
+		font-size: 1.1rem;
+		transition: all 0.3s ease;
+		border: 2px solid transparent;
+	}
+
+	.button.primary {
+		background: linear-gradient(45deg, #fbbf24, #f59e0b);
+		color: #1e3a8a;
+		box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+	}
+
+	.button.primary:hover {
+		transform: translateY(-2px);
+		box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
+	}
+
+	.button.secondary {
+		background: transparent;
+		color: white;
+		border-color: white;
+	}
+
+	.button.secondary:hover {
+		background: white;
+		color: #1e3a8a;
+		transform: translateY(-2px);
+	}
+
+	/* Services Section */
+	.services-section {
+		padding: 80px 0;
+		background: rgba(255, 255, 255, 0.1);
+		backdrop-filter: blur(10px);
+		margin: 40px 0;
+		border-radius: 20px;
+	}
+
+	.services-section h3 {
+		text-align: center;
+		font-size: 2.5rem;
+		margin: 0 0 50px;
+		color: white;
+	}
+
+	.services-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+		gap: 30px;
+		padding: 0 20px;
+	}
+
+	.service-card {
+		background: rgba(255, 255, 255, 0.15);
+		padding: 30px 20px;
+		border-radius: 15px;
+		text-align: center;
+		transition: transform 0.3s ease;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+	}
+
+	.service-card:hover {
+		transform: translateY(-5px);
+		background: rgba(255, 255, 255, 0.2);
+	}
+
+	.service-icon {
+		font-size: 3rem;
+		margin-bottom: 20px;
+	}
+
+	.service-card h4 {
+		font-size: 1.5rem;
+		margin: 0 0 15px;
+		color: #fbbf24;
+	}
+
+	.service-card p {
+		color: #e5e7eb;
+		line-height: 1.6;
+		margin: 0;
+	}
+
+	/* Contact Section */
+	.contact-section {
+		padding: 80px 0;
+		text-align: center;
+	}
+
+	.contact-info h3 {
+		font-size: 2.5rem;
+		margin: 0 0 20px;
+		color: white;
+	}
+
+	.contact-info > p {
+		font-size: 1.2rem;
+		margin: 0 0 40px;
+		color: #e5e7eb;
+	}
+
+	.contact-methods {
+		display: flex;
+		justify-content: center;
+		gap: 40px;
+		flex-wrap: wrap;
+	}
+
+	.contact-method {
+		font-size: 1.1rem;
+		color: #e5e7eb;
+	}
+
+	.contact-method strong {
+		color: #fbbf24;
+		display: block;
+		margin-bottom: 5px;
+	}
+
+	/* Responsive Design */
+	@media screen and (max-width: 768px) {
+		.company-name {
+			font-size: 2.5rem;
+		}
+
+		.hero-content h2 {
+			font-size: 2rem;
+		}
+
+		.hero-description {
+			font-size: 1.1rem;
+		}
+
+		#cta-buttons {
+			flex-direction: column;
+			align-items: center;
+		}
+
+		.button {
+			width: 100%;
+			max-width: 300px;
+		}
+
+		.services-section h3,
+		.contact-info h3 {
+			font-size: 2rem;
+		}
+
+		.contact-methods {
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		main {
+			padding: 0 15px;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		#hero {
+			padding: 60px 0 40px;
+		}
+
+		.company-name {
+			font-size: 2rem;
+		}
+
+		.services-section,
+		.contact-section {
+			padding: 60px 0;
+		}
+	}
+</style>
