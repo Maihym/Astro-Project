@@ -11,9 +11,9 @@ import partytown from '@astrojs/partytown';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://maihym.github.io',
-  base: process.env.NODE_ENV === 'production' ? '/Astro-Project' : '/',
-  integrations: [react(), sitemap(), partytown()],
+  site: 'https://new2.firstelectric.pro',
+  base: '/',
+  integrations: [react(), sitemap()],
 
   vite: {
     plugins: [tailwindcss()],

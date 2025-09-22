@@ -117,7 +117,7 @@ export const businessConfig: BusinessConfig = {
     timezone: "PST"
   },
   social: {
-    website: "https://firstelectric.pro",
+    website: "https://new2.firstelectric.pro",
     facebook: "https://facebook.com/firstelectric",
     instagram: "https://instagram.com/firstelectric",
     linkedin: "https://linkedin.com/company/firstelectric",
