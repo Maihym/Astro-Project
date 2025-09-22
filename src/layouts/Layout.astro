@@ -8,6 +8,72 @@ const businessInfo = getBusinessInfo()
 const companyInfo = getCompanyInfo()
 const seoInfo = getSEOInfo()
 const bookingInfo = getBookingInfo()
+
+// Props for dynamic meta tags
+export interface Props {
+  title?: string
+  description?: string
+  keywords?: string[]
+  image?: string
+  url?: string
+  type?: string
+  author?: string
+  publishedTime?: string
+  modifiedTime?: string
+  section?: string
+  tags?: string[]
+}
+
+const { 
+  title = seoInfo.defaultTitle,
+  description = seoInfo.defaultDescription,
+  keywords = seoInfo.defaultKeywords,
+  image = `${businessInfo.social.website}/logo.svg`,
+  url = `${businessInfo.social.website}${Astro.url.pathname}`,
+  type = 'website',
+  author = seoInfo.author,
+  publishedTime,
+  modifiedTime,
+  section,
+  tags
+} = Astro.props
+
+// Generate structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": companyInfo.name,
+  "description": companyInfo.description,
+  "url": businessInfo.social.website,
+  "telephone": businessInfo.contact.main.phone,
+  "email": businessInfo.contact.main.email,
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": businessInfo.contact.main.address.street,
+    "addressLocality": businessInfo.contact.main.address.city,
+    "addressRegion": businessInfo.contact.main.address.state,
+    "postalCode": businessInfo.contact.main.address.zip,
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "33.9172",
+    "longitude": "-118.0120"
+  },
+  "openingHours": "Mo-Su 00:00-23:59",
+  "priceRange": "$$",
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "reviewCount": "40"
+  },
+  "sameAs": [
+    businessInfo.social.facebook,
+    businessInfo.social.instagram,
+    businessInfo.social.linkedin,
+    businessInfo.social.yelp
+  ].filter(Boolean)
+}
 ---
 
 <script is:inline>
@@ -41,11 +107,81 @@ const bookingInfo = getBookingInfo()
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/svg+xml" href={businessInfo.branding.favicon} />
 		<meta name="generator" content={Astro.generator} />
-		<title>{seoInfo.defaultTitle}</title>
-		<meta name="description" content={seoInfo.defaultDescription} />
+		
+		<!-- Primary Meta Tags -->
+		<title>{title}</title>
+		<meta name="title" content={title} />
+		<meta name="description" content={description} />
+		<meta name="keywords" content={keywords.join(', ')} />
+		<meta name="author" content={author} />
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="en-US" />
+		<meta name="revisit-after" content="7 days" />
+		
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content={type} />
+		<meta property="og:url" content={url} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={image} />
+		<meta property="og:site_name" content={companyInfo.name} />
+		<meta property="og:locale" content="en_US" />
+		
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content={url} />
+		<meta property="twitter:title" content={title} />
+		<meta property="twitter:description" content={description} />
+		<meta property="twitter:image" content={image} />
+		
+		<!-- Additional Meta Tags -->
+		<meta name="theme-color" content={businessInfo.branding.primaryColor} />
+		<meta name="msapplication-TileColor" content={businessInfo.branding.primaryColor} />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="default" />
+		<meta name="apple-mobile-web-app-title" content={companyInfo.name} />
+		
+		<!-- Canonical URL -->
+		<link rel="canonical" href={url} />
+		
+		<!-- Structured Data -->
+		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+		
+		<!-- Preconnect to external domains -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		
+		<!-- Additional structured data for articles -->
+		{type === 'article' && (
+			<script type="application/ld+json" set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "Article",
+				"headline": title,
+				"description": description,
+				"image": image,
+				"author": {
+					"@type": "Organization",
+					"name": companyInfo.name
+				},
+				"publisher": {
+					"@type": "Organization",
+					"name": companyInfo.name,
+					"logo": {
+						"@type": "ImageObject",
+						"url": `${businessInfo.social.website}/logo.svg`
+					}
+				},
+				"datePublished": publishedTime,
+				"dateModified": modifiedTime || publishedTime,
+				"mainEntityOfPage": {
+					"@type": "WebPage",
+					"@id": url
+				}
+			})} />
+		)}
 	</head>
 	<body>
 		<Header client:load />

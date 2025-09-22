@@ -42,16 +42,11 @@ export default function Header({ className }: HeaderProps) {
   const navigationItems = [
     { label: 'Home', href: '/' },
     { label: 'Services', href: '/services' },
+    { label: 'Reviews', href: '/reviews' },
     { label: 'About Us', href: '/about' },
     { label: 'Contact', href: '/contact' }
   ]
 
-  const serviceItems = [
-    { label: 'Residential Wiring', href: '/services/residential-wiring' },
-    { label: 'Commercial Electrical', href: '/services/commercial-electrical' },
-    { label: 'Emergency Repairs', href: '/services/emergency-repairs' },
-    { label: 'All Services', href: '/services' }
-  ]
 
   // Search suggestions data
   const searchSuggestions = [
@@ -72,6 +67,7 @@ export default function Header({ className }: HeaderProps) {
     
     // Pages
     { type: 'page', title: 'About Us', description: 'Learn about our electrical company', href: '/about' },
+    { type: 'page', title: 'Reviews', description: 'Read customer reviews and testimonials', href: '/reviews' },
     { type: 'page', title: 'Contact', description: 'Get in touch with our team', href: '/contact' },
     { type: 'page', title: 'Free Quote', description: 'Request a free electrical quote', href: '/contact' },
   ]
@@ -162,7 +158,7 @@ export default function Header({ className }: HeaderProps) {
       <div className="container mx-auto px-4 py-2">
         <div className="flex h-20 sm:h-24 md:h-28 lg:h-32 xl:h-40 items-center justify-between">
           {/* Logo and Company Name */}
-          <a href="./" className="flex items-center space-x-4 p-2 hover:opacity-80 transition-opacity">
+          <a href="/" className="flex items-center space-x-4 p-2 hover:opacity-80 transition-opacity">
             <img 
               src={businessInfo.branding.logo} 
               alt={`${companyInfo.name} Logo`} 
@@ -188,27 +184,6 @@ export default function Header({ className }: HeaderProps) {
                     </NavigationMenuLink>
                   </NavigationMenuItem>
                 ))}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="h-12 px-6 py-3 text-base">Services</NavigationMenuTrigger>
-                  <NavigationMenuContent>
-                    <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                      {serviceItems.map((service) => (
-                        <li key={service.href}>
-                          <NavigationMenuLink asChild>
-                            <a
-                              className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                              href={service.href}
-                            >
-                              <div className="text-sm font-medium leading-none">
-                                {service.label}
-                              </div>
-                            </a>
-                          </NavigationMenuLink>
-                        </li>
-                      ))}
-                    </ul>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
           </div>
@@ -379,7 +354,7 @@ export default function Header({ className }: HeaderProps) {
                 <div className="flex flex-col space-y-4 mt-8">
                   {/* Mobile Logo */}
                   <a 
-                    href="./" 
+                    href="/" 
                     className="flex items-center space-x-4 p-4 pb-4 border-b hover:opacity-80 transition-opacity"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
@@ -406,24 +381,6 @@ export default function Header({ className }: HeaderProps) {
                         {item.label}
                       </a>
                     ))}
-                    
-                    <Separator className="my-2" />
-                    
-                    <div className="px-4 py-3">
-                      <h3 className="text-base font-semibold mb-3">Services</h3>
-                      <div className="space-y-2">
-                        {serviceItems.map((service) => (
-                          <a
-                            key={service.href}
-                            href={service.href}
-                            className="block px-4 py-2 text-base text-muted-foreground rounded-md hover:bg-accent hover:text-accent-foreground"
-                            onClick={() => setIsMobileMenuOpen(false)}
-                          >
-                            {service.label}
-                          </a>
-                        ))}
-                      </div>
-                    </div>
                   </nav>
 
                   <Separator />

@@ -1,10 +1,34 @@
 ---
-import { getSocialLinks } from '../config/business';
+import { getBusinessInfo } from '../config/business';
 
-const socialLinks = getSocialLinks();
+const businessInfo = getBusinessInfo();
 ---
 
 User-agent: *
 Allow: /
 
-Sitemap: {socialLinks.website}/sitemap.xml
+# Disallow admin and private areas
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_astro/
+Disallow: /~partytown/
+
+# Allow important pages
+Allow: /
+Allow: /services/
+Allow: /cities/
+Allow: /about
+Allow: /contact
+Allow: /reviews
+
+# Allow static assets
+Allow: /logo.svg
+Allow: /favicon.svg
+Allow: /assets/
+Allow: /public/
+
+# Sitemap location
+Sitemap: {businessInfo.social.website}/sitemap.xml
+
+# Crawl delay (optional)
+Crawl-delay: 1

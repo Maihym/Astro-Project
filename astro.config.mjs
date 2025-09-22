@@ -12,6 +12,7 @@ import partytown from '@astrojs/partytown';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://maihym.github.io',
+  base: process.env.NODE_ENV === 'production' ? '/Astro-Project' : '/',
   integrations: [react(), sitemap(), partytown()],
 
   vite: {
@@ -27,5 +28,22 @@ export default defineConfig({
   image: {
     responsiveStyles: true,
     layout: 'constrained', // Default layout for all images
+  },
+
+  // Static asset handling
+  publicDir: 'public',
+  
+  // Build configuration
+  build: {
+    assets: 'assets',
+    inlineStylesheets: 'auto'
+  },
+
+  // Output configuration
+  output: 'static',
+  
+  // Security headers
+  security: {
+    checkOrigin: true
   }
 });
