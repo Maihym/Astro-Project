@@ -44,7 +44,15 @@ const platformStats = [
 ]
 ---
 
-<Layout title={`Customer Reviews - ${companyInfo.name}`} description={`Read customer reviews and testimonials for ${companyInfo.name}. See why our customers trust us for their electrical needs.`}>
+<Layout 
+  title={`Customer Reviews - ${companyInfo.name}`} 
+  description={`Read customer reviews and testimonials for ${companyInfo.name}. See why our customers trust us for their electrical needs.`}
+  reviews={reviewsData}
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Customer Reviews", url: "/reviews" }
+  ]}
+>
   <main class="min-h-screen bg-background">
     <!-- Hero Section -->
     <section class="bg-gradient-to-br from-primary/10 via-background to-secondary/10 py-16 md:py-24">

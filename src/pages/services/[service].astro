@@ -19,7 +19,16 @@ const { service } = Astro.props;
 const cities = getAllCities();
 ---
 
-<Layout title={service.seo.title} description={service.seo.description}>
+<Layout 
+  title={service.seo.title} 
+  description={service.seo.description}
+  service={service}
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Services", url: "/services" },
+    { name: service.title, url: `/services/${service.slug}` }
+  ]}
+>
   <main class="min-h-screen bg-background">
     <!-- Hero Section -->
     <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">

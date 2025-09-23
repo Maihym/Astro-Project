@@ -16,7 +16,13 @@ export const residentialWiring = {
     'Outlet and switch installation',
     'Lighting installation',
     'GFCI outlet installation',
-    'Whole house rewiring'
+    'Whole house rewiring',
+    'Circuit breaker installation',
+    'Electrical outlet repair',
+    'Ceiling fan wiring',
+    'Smart home wiring',
+    'USB outlet installation',
+    'Electrical code compliance'
   ],
   benefits: [
     'Improved safety and code compliance',

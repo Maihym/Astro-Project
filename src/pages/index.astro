@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getCompanyInfo, getContactInfo, getBusinessInfo } from '../config/business';
 import { getAllServices, getAllCities } from '../lib/data';
+import { electricalFAQs } from '../data/faqs/electrical-faqs';
 
 const companyInfo = getCompanyInfo();
 const contactInfo = getContactInfo();
@@ -25,6 +26,7 @@ const cities = getAllCities();
 		"electrical repair",
 		"electrical installation"
 	]}
+	faqs={electricalFAQs}
 >
 	<main class="min-h-screen bg-background">
 		<!-- Hero Section -->

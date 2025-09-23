@@ -16,7 +16,13 @@ export const emergencyRepairs = {
     'Electrical fire prevention',
     'Circuit breaker issues',
     'Faulty wiring repairs',
-    'Electrical safety inspections'
+    'Electrical safety inspections',
+    'Breaker keeps tripping',
+    'Outlets not working',
+    'Electrical panel problems',
+    'GFCI outlet issues',
+    'Emergency lighting repairs',
+    'Electrical hazard mitigation'
   ],
   benefits: [
     'Immediate response to emergencies',
@@ -31,6 +37,6 @@ export const emergencyRepairs = {
   seo: {
     title: `Emergency Electrical Repairs | 24/7 Service | ${companyInfo.name}`,
     description: '24/7 emergency electrical repair services. Fast response to power outages, electrical fires, and urgent electrical issues.',
-    keywords: ['emergency electrical', '24/7 electrician', 'power outage repair', 'electrical emergency']
+    keywords: ['emergency electrical', '24/7 electrician', '24 hour electrician', 'power outage repair', 'electrical emergency', 'breaker keeps tripping', 'outlets not working']
   }
 };

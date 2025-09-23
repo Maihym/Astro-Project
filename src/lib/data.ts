@@ -4,6 +4,16 @@ import type { CollectionEntry } from 'astro:content';
 import { residentialWiring } from '../data/services/residential-wiring';
 import { commercialElectrical } from '../data/services/commercial-electrical';
 import { emergencyRepairs } from '../data/services/emergency-repairs';
+import { evChargingInstallation } from '../data/services/ev-charging-installation';
+import { ceilingFanInstallation } from '../data/services/ceiling-fan-installation';
+import { circuitBreakerServices } from '../data/services/circuit-breaker-services';
+import { gfciOutletServices } from '../data/services/gfci-outlet-services';
+import { backupGeneratorInstallation } from '../data/services/backup-generator-installation';
+import { electricalPanelServices } from '../data/services/electrical-panel-services';
+import { outletRepairServices } from '../data/services/outlet-repair-services';
+import { lightingInstallation } from '../data/services/lighting-installation';
+import { electricalInspection } from '../data/services/electrical-inspection';
+import { smartHomeElectrical } from '../data/services/smart-home-electrical';
 
 // City data imports
 import { laMirada } from '../data/cities/la-mirada';
@@ -68,9 +78,24 @@ export interface City {
 
 // Service data collection
 export const services: Service[] = [
+  // Core Services
   residentialWiring,
   commercialElectrical,
   emergencyRepairs,
+  
+  // High-Priority Services (Based on Keyword Analysis)
+  evChargingInstallation,
+  ceilingFanInstallation,
+  circuitBreakerServices,
+  gfciOutletServices,
+  backupGeneratorInstallation,
+  
+  // Additional Services
+  electricalPanelServices,
+  outletRepairServices,
+  lightingInstallation,
+  electricalInspection,
+  smartHomeElectrical,
 ];
 
 // City data collection

@@ -72,6 +72,13 @@ export interface BusinessConfig {
     serviceCall: string;
     inspection: string;
   };
+  analytics: {
+    googleAnalyticsId?: string;
+    googleTagManagerId?: string;
+    googleSearchConsoleId?: string;
+    facebookPixelId?: string;
+    environment: 'development' | 'staging' | 'production';
+  };
 }
 
 export const businessConfig: BusinessConfig = {
@@ -154,6 +161,14 @@ export const businessConfig: BusinessConfig = {
     freeQuote: "https://calendar.app.google/KA9sCmb1mqv8m7TH6",
     serviceCall: "https://calendar.app.google/3S63HemGbJM3BXsj7",
     inspection: "https://calendar.app.google/kuoM2qEwm2osbUBi6"
+  },
+  analytics: {
+    // TODO: Add your Google Analytics 4 Measurement ID when ready for production
+    googleAnalyticsId: "G-QD0KG6NZHP",
+    // googleTagManagerId: "GTM-XXXXXXX",
+    // googleSearchConsoleId: "your-search-console-id",
+    // facebookPixelId: "your-facebook-pixel-id",
+    environment: 'production' // Ready for production tracking
   }
 };
 
@@ -173,6 +188,8 @@ export const getSEOInfo = () => businessConfig.seo;
 export const getBrandingInfo = () => businessConfig.branding;
 
 export const getBookingInfo = () => businessConfig.booking;
+
+export const getAnalyticsInfo = () => businessConfig.analytics;
 
 // Utility functions for formatting
 export const formatPhoneNumber = (phone: string) => {

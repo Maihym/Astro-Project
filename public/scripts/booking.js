@@ -119,6 +119,11 @@ class BookingModal {
       return
     }
     
+    // Track booking click for analytics
+    if (window.trackBookingClick) {
+      window.trackBookingClick(type)
+    }
+    
     this.currentBooking = type
     this.isOpen = true
     

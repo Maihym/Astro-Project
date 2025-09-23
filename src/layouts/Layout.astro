@@ -2,12 +2,14 @@
 import '../styles/global.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
-import { getBusinessInfo, getCompanyInfo, getSEOInfo, getBookingInfo } from '../config/business'
+import Analytics from '../components/Analytics'
+import { getBusinessInfo, getCompanyInfo, getSEOInfo, getBookingInfo, getAnalyticsInfo } from '../config/business'
 
 const businessInfo = getBusinessInfo()
 const companyInfo = getCompanyInfo()
 const seoInfo = getSEOInfo()
 const bookingInfo = getBookingInfo()
+const analyticsInfo = getAnalyticsInfo()
 
 // Props for dynamic meta tags
 export interface Props {
@@ -22,6 +24,12 @@ export interface Props {
   modifiedTime?: string
   section?: string
   tags?: string[]
+  // Structured data props
+  service?: any
+  city?: any
+  reviews?: any[]
+  breadcrumbs?: Array<{name: string, url: string}>
+  faqs?: Array<{question: string, answer: string}>
 }
 
 const { 
@@ -35,45 +43,89 @@ const {
   publishedTime,
   modifiedTime,
   section,
-  tags
+  tags,
+  // Structured data props
+  service,
+  city,
+  reviews,
+  breadcrumbs,
+  faqs
 } = Astro.props
 
-// Generate structured data
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "name": companyInfo.name,
-  "description": companyInfo.description,
-  "url": businessInfo.social.website,
-  "telephone": businessInfo.contact.main.phone,
-  "email": businessInfo.contact.main.email,
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": businessInfo.contact.main.address.street,
-    "addressLocality": businessInfo.contact.main.address.city,
-    "addressRegion": businessInfo.contact.main.address.state,
-    "postalCode": businessInfo.contact.main.address.zip,
-    "addressCountry": "US"
-  },
-  "geo": {
-    "@type": "GeoCoordinates",
-    "latitude": "33.9172",
-    "longitude": "-118.0120"
-  },
-  "openingHours": "Mo-Su 00:00-23:59",
-  "priceRange": "$$",
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "reviewCount": "40"
-  },
-  "sameAs": [
-    businessInfo.social.facebook,
-    businessInfo.social.instagram,
-    businessInfo.social.linkedin,
-    businessInfo.social.yelp
-  ].filter(Boolean)
+// Generate dynamic structured data based on page type
+function generateStructuredData() {
+  const baseBusiness = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": companyInfo.name,
+    "description": companyInfo.description,
+    "url": businessInfo.social.website,
+    "telephone": businessInfo.contact.main.phone,
+    "email": businessInfo.contact.main.email,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": businessInfo.contact.main.address.street,
+      "addressLocality": businessInfo.contact.main.address.city,
+      "addressRegion": businessInfo.contact.main.address.state,
+      "postalCode": businessInfo.contact.main.address.zip,
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "33.9172",
+      "longitude": "-118.0120"
+    },
+    "openingHours": "Mo-Su 00:00-23:59",
+    "priceRange": "$$",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "40"
+    },
+    "sameAs": [
+      businessInfo.social.facebook,
+      businessInfo.social.instagram,
+      businessInfo.social.linkedin,
+      businessInfo.social.yelp
+    ].filter(Boolean)
+  };
+
+  // Service page schema
+  if (service) {
+    return {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": service.title,
+      "description": service.description,
+      "provider": baseBusiness,
+      "serviceType": "Electrical Services",
+      "areaServed": city ? [city.name] : ["La Mirada", "Whittier", "Cerritos"],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": `${service.title} Services`,
+        "itemListElement": service.features.map((feature: string, index: number) => ({
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": feature
+          },
+          "position": index + 1
+        }))
+      },
+      "offers": {
+        "@type": "Offer",
+        "priceRange": "$$",
+        "availability": "https://schema.org/InStock",
+        "validFrom": new Date().toISOString().split('T')[0]
+      }
+    };
+  }
+
+  // Default to LocalBusiness for all other pages
+  return baseBusiness;
 }
+
+const structuredData = generateStructuredData();
 ---
 
 <script is:inline>
@@ -148,8 +200,72 @@ const structuredData = {
 		<!-- Canonical URL -->
 		<link rel="canonical" href={url} />
 		
+		<!-- Google Search Console Verification -->
+		{analyticsInfo.googleSearchConsoleId && (
+			<meta name="google-site-verification" content={analyticsInfo.googleSearchConsoleId} />
+		)}
+		
 		<!-- Structured Data -->
 		<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+		
+		<!-- Additional Structured Data Schemas -->
+		
+		<!-- Breadcrumb Schema -->
+		{breadcrumbs && breadcrumbs.length > 0 && (
+			<script type="application/ld+json" set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "BreadcrumbList",
+				"itemListElement": breadcrumbs.map((crumb, index) => ({
+					"@type": "ListItem",
+					"position": index + 1,
+					"name": crumb.name,
+					"item": crumb.url
+				}))
+			})} />
+		)}
+		
+		<!-- Review Schema -->
+		{reviews && reviews.length > 0 && (
+			<script type="application/ld+json" set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "LocalBusiness",
+				"name": companyInfo.name,
+				"aggregateRating": {
+					"@type": "AggregateRating",
+					"ratingValue": "5.0",
+					"reviewCount": reviews.length.toString()
+				},
+				"review": reviews.slice(0, 5).map(review => ({
+					"@type": "Review",
+					"author": {
+						"@type": "Person",
+						"name": review.author
+					},
+					"reviewRating": {
+						"@type": "Rating",
+						"ratingValue": review.rating.toString()
+					},
+					"reviewBody": review.text,
+					"datePublished": review.date
+				}))
+			})} />
+		)}
+		
+		<!-- FAQ Schema -->
+		{faqs && faqs.length > 0 && (
+			<script type="application/ld+json" set:html={JSON.stringify({
+				"@context": "https://schema.org",
+				"@type": "FAQPage",
+				"mainEntity": faqs.map(faq => ({
+					"@type": "Question",
+					"name": faq.question,
+					"acceptedAnswer": {
+						"@type": "Answer",
+						"text": faq.answer
+					}
+				}))
+			})} />
+		)}
 		
 		<!-- Preconnect to external domains -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -188,6 +304,12 @@ const structuredData = {
 		<Header client:load />
 		<slot />
 		<Footer client:load />
+		<!-- Analytics Component -->
+		<Analytics 
+			client:load 
+			pageTitle={title}
+			pagePath={url}
+		/>
 		<!-- External script from public directory - proper Astro approach -->
 		<script is:inline src="/scripts/booking.js"></script>
 	</body>
