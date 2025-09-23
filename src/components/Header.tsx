@@ -147,7 +147,15 @@ export default function Header({ className }: HeaderProps) {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <span className="text-muted-foreground">{companyInfo.license}</span>
+              <a 
+                href={companyInfo.licenseUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+                title="Verify our C-10 license with the California State License Board"
+              >
+                {companyInfo.license}
+              </a>
               <ModeToggle />
             </div>
           </div>

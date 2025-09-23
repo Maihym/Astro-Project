@@ -1,12 +1,15 @@
 ---
 // Enhanced Service Page Template for First Electric - Local SEO Optimized
-// This template provides a comprehensive structure for service pages
+// This template provides a comprehensive structure for creating new service pages
 // that fully complies with Google Local SEO best practices
 
-import Layout from '../../layouts/Layout.astro';
-import { getServiceBySlug, getAllServices, getAllCities } from '../../lib/data';
-import type { Service } from '../../lib/data';
+import Layout from '../layouts/Layout.astro';
+import { getServiceBySlug, getAllServices, getAllCities } from '../lib/data';
+import type { Service } from '../lib/data';
 
+// This template shows the structure - replace with actual service data
+// For a real implementation, you would use getStaticPaths() like this:
+/*
 export async function getStaticPaths() {
   const services = getAllServices();
   return services.map((service) => ({
@@ -14,11 +17,13 @@ export async function getStaticPaths() {
     props: { service },
   }));
 }
+*/
 
 interface Props {
   service: Service;
 }
 
+// For template demonstration - replace with actual service prop
 const { service } = Astro.props;
 const cities = getAllCities();
 
@@ -165,13 +170,13 @@ const faqSchema = generateFAQSchema(service);
       <div class="container mx-auto text-center">
         <div class="text-6xl mb-6">{service.icon}</div>
         <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
-          {service.title} Services
+          {service.title} in La Mirada, Whittier & Cerritos
         </h1>
         <p class="text-xl text-muted-foreground mb-6 max-w-4xl mx-auto">
-          {service.description}
+          {service.description} First Electric LLC is your trusted licensed C-10 electrical contractor (License #1120441) serving La Mirada, Whittier, Cerritos, and surrounding areas with professional electrical solutions.
         </p>
         <p class="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-          We serve La Mirada, Whittier, Cerritos, and surrounding areas with professional electrical solutions. Our licensed C-10 electrical contractor team delivers safe, code-compliant work with 24/7 emergency service availability.
+          Whether you need {service.title.toLowerCase()} in La Mirada's residential neighborhoods, Whittier's historic homes, or Cerritos' modern developments, our experienced electricians deliver safe, code-compliant electrical work with 24/7 emergency service availability.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <button 
@@ -195,7 +200,7 @@ const faqSchema = generateFAQSchema(service);
           {service.features.map((feature) => (
             <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-shadow">
               <h3 class="text-xl font-semibold mb-2">{feature}</h3>
-              <p class="text-muted-foreground">Professional installation and service to meet your electrical needs.</p>
+              <p class="text-muted-foreground">Professional installation and service for {feature.toLowerCase()}.</p>
             </div>
           ))}
         </div>
@@ -214,7 +219,7 @@ const faqSchema = generateFAQSchema(service);
               </div>
               <div>
                 <h3 class="text-lg font-semibold mb-2">{benefit}</h3>
-                <p class="text-muted-foreground">Experience the difference with our professional approach to electrical services.</p>
+                <p class="text-muted-foreground">Experience the difference with our professional approach to {service.title.toLowerCase()}.</p>
               </div>
             </div>
           ))}
@@ -222,43 +227,43 @@ const faqSchema = generateFAQSchema(service);
       </div>
     </section>
 
-    <!-- Local Considerations Section -->
+    <!-- Local Considerations Section - NEW for Local SEO -->
     <section class="py-16 px-4">
       <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Serving Your Local Area</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">Local Considerations for {service.title}</h2>
         <div class="grid lg:grid-cols-3 gap-8">
           <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <h3 class="text-xl font-semibold mb-4 text-primary">La Mirada</h3>
+            <h3 class="text-xl font-semibold mb-4 text-primary">La Mirada {service.title}</h3>
             <p class="text-muted-foreground mb-4">
-              From homes built in the 1960s to modern developments, La Mirada's diverse housing requires specialized electrical expertise. We understand the unique challenges facing local property owners.
+              La Mirada's diverse housing stock, from homes built in the 1960s to modern developments, requires specialized electrical expertise. Our licensed electricians understand the unique electrical challenges facing La Mirada property owners.
             </p>
             <ul class="space-y-2 text-sm text-muted-foreground">
-              <li>• Local permit handling</li>
+              <li>• Local permit requirements and processes</li>
               <li>• California electrical code compliance</li>
-              <li>• Area-specific electrical solutions</li>
-              <li>• Building department coordination</li>
+              <li>• Area-specific electrical challenges</li>
+              <li>• Local building department coordination</li>
             </ul>
           </div>
           <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <h3 class="text-xl font-semibold mb-4 text-primary">Whittier</h3>
+            <h3 class="text-xl font-semibold mb-4 text-primary">Whittier {service.title}</h3>
             <p class="text-muted-foreground mb-4">
-              Whittier's mix of historic homes and modern developments requires careful electrical planning. Our team is experienced with both historic preservation and contemporary electrical needs.
+              Whittier's historic homes and modern developments require careful electrical planning. Our team is experienced with both historic property preservation and contemporary electrical needs in Whittier.
             </p>
             <ul class="space-y-2 text-sm text-muted-foreground">
-              <li>• Historic home considerations</li>
-              <li>• Local permit requirements</li>
-              <li>• Code compliance expertise</li>
-              <li>• Neighborhood-specific solutions</li>
+              <li>• Historic home electrical considerations</li>
+              <li>• Local electrical permit requirements</li>
+              <li>• Whittier-specific code compliance</li>
+              <li>• Neighborhood-specific challenges</li>
             </ul>
           </div>
           <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <h3 class="text-xl font-semibold mb-4 text-primary">Cerritos</h3>
+            <h3 class="text-xl font-semibold mb-4 text-primary">Cerritos {service.title}</h3>
             <p class="text-muted-foreground mb-4">
-              Cerritos' modern infrastructure and focus on technology requires advanced electrical solutions. We're experienced with smart home installations and modern electrical systems.
+              Cerritos' modern infrastructure and focus on technology requires advanced electrical solutions. Our electricians are experienced with smart home installations and modern electrical systems in Cerritos.
             </p>
             <ul class="space-y-2 text-sm text-muted-foreground">
-              <li>• Modern electrical systems</li>
-              <li>• Smart home integration</li>
+              <li>• Modern home electrical systems</li>
+              <li>• Smart home integration expertise</li>
               <li>• Energy-efficient solutions</li>
               <li>• Commercial electrical experience</li>
             </ul>
@@ -267,15 +272,15 @@ const faqSchema = generateFAQSchema(service);
       </div>
     </section>
 
-    <!-- Pricing & Estimates Section -->
+    <!-- Pricing & Estimates Section - NEW for Local SEO -->
     <section class="py-16 px-4 bg-muted/30">
       <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Pricing & Estimates</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">Pricing & Estimates for {service.title}</h2>
         <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           <div class="bg-card p-8 rounded-lg border shadow-sm">
             <h3 class="text-2xl font-semibold mb-4 text-primary">Free Estimates</h3>
             <p class="text-muted-foreground mb-6">
-              We provide detailed, free estimates for all electrical services. Our licensed electricians will assess your needs and provide transparent pricing with no hidden fees.
+              We provide detailed, free estimates for all {service.title.toLowerCase()} services in La Mirada, Whittier, Cerritos, and surrounding areas. Our licensed electricians will assess your electrical needs and provide transparent pricing with no hidden fees.
             </p>
             <ul class="space-y-3 text-muted-foreground">
               <li class="flex items-center gap-2">
@@ -288,18 +293,18 @@ const faqSchema = generateFAQSchema(service);
               </li>
               <li class="flex items-center gap-2">
                 <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Competitive market pricing
+                Local market pricing
               </li>
               <li class="flex items-center gap-2">
                 <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Clear timeline expectations
+                Timeline expectations
               </li>
             </ul>
           </div>
           <div class="bg-card p-8 rounded-lg border shadow-sm">
             <h3 class="text-2xl font-semibold mb-4 text-primary">Payment Options</h3>
             <p class="text-muted-foreground mb-6">
-              We offer flexible payment options to make electrical services accessible for all our customers.
+              We offer flexible payment options to make {service.title.toLowerCase()} accessible for all our customers in the La Mirada, Whittier, and Cerritos areas.
             </p>
             <ul class="space-y-3 text-muted-foreground">
               <li class="flex items-center gap-2">
@@ -324,10 +329,10 @@ const faqSchema = generateFAQSchema(service);
       </div>
     </section>
 
-    <!-- Customer Testimonials Section -->
+    <!-- Local Testimonials Section - NEW for Local SEO -->
     <section class="py-16 px-4">
       <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
+        <h2 class="text-3xl font-bold text-center mb-12">What Our Local Customers Say</h2>
         <div class="grid md:grid-cols-3 gap-8">
           <div class="bg-card p-6 rounded-lg border shadow-sm">
             <div class="flex items-center gap-1 mb-4">
@@ -336,7 +341,7 @@ const faqSchema = generateFAQSchema(service);
               ))}
             </div>
             <p class="text-muted-foreground mb-4">
-              "First Electric came out for our electrical work in La Mirada and fixed our issue within an hour. Professional, knowledgeable, and reasonably priced. Highly recommend!"
+              "First Electric came out for {service.title.toLowerCase()} in La Mirada and fixed our issue within an hour. Professional, knowledgeable, and reasonably priced. Highly recommend!"
             </p>
             <div class="text-sm font-semibold">Sarah Johnson</div>
             <div class="text-sm text-muted-foreground">La Mirada, CA</div>
@@ -348,7 +353,7 @@ const faqSchema = generateFAQSchema(service);
               ))}
             </div>
             <p class="text-muted-foreground mb-4">
-              "Excellent service for our electrical project in Whittier. The team was professional, clean, and completed the work on time. Great communication throughout the process."
+              "Excellent service for our {service.title.toLowerCase()} in Whittier. The team was professional, clean, and completed the work on time. Great communication throughout the process."
             </p>
             <div class="text-sm font-semibold">Mike Rodriguez</div>
             <div class="text-sm text-muted-foreground">Whittier, CA</div>
@@ -360,7 +365,7 @@ const faqSchema = generateFAQSchema(service);
               ))}
             </div>
             <p class="text-muted-foreground mb-4">
-              "We needed electrical work in our Cerritos home. First Electric handled everything from permits to final inspection. The work was done professionally and on schedule."
+              "We needed {service.title.toLowerCase()} in our Cerritos home. First Electric handled everything from permits to final inspection. The work was done professionally and on schedule."
             </p>
             <div class="text-sm font-semibold">Jennifer Chen</div>
             <div class="text-sm text-muted-foreground">Cerritos, CA</div>
@@ -406,41 +411,41 @@ const faqSchema = generateFAQSchema(service);
       </div>
     </section>
 
-    <!-- FAQ Section -->
+    <!-- FAQ Section - Enhanced with Local Context and Voice Search Optimization -->
     <section class="py-16 px-4 bg-muted/30">
       <div class="container mx-auto">
         <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
         <div class="max-w-4xl mx-auto space-y-6">
           <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">How quickly can you respond to electrical service requests?</h3>
-            <p class="text-muted-foreground">We typically respond to electrical service requests within 60 minutes, 24/7. Our team is strategically located to serve the La Mirada, Whittier, and Cerritos areas quickly, and we stock common parts to resolve most issues on the first visit.</p>
+            <h3 class="text-xl font-semibold mb-2">How quickly can you respond to {service.title.toLowerCase()} in La Mirada?</h3>
+            <p class="text-muted-foreground">We typically respond to {service.title.toLowerCase()} requests in La Mirada within 60 minutes, 24/7. Our team is strategically located to serve the entire La Mirada area quickly, and we stock common parts to resolve most issues on the first visit.</p>
           </div>
           <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">Do you offer free estimates?</h3>
-            <p class="text-muted-foreground">Yes, we provide free estimates for all electrical services. Our licensed electricians will assess your electrical needs and provide a detailed estimate with no obligation.</p>
+            <h3 class="text-xl font-semibold mb-2">Do you offer free estimates for {service.title.toLowerCase()}?</h3>
+            <p class="text-muted-foreground">Yes, we provide free estimates for all {service.title.toLowerCase()} services in La Mirada, Whittier, Cerritos, and surrounding areas. Our licensed electricians will assess your electrical needs and provide a detailed estimate with no obligation.</p>
           </div>
           <div class="bg-card p-6 rounded-lg border">
             <h3 class="text-xl font-semibold mb-2">Are you licensed and insured for electrical work in California?</h3>
             <p class="text-muted-foreground">Yes, First Electric LLC is a licensed C-10 electrical contractor (License #1120441) and fully insured. We are bonded and carry comprehensive liability insurance to protect your property and our work.</p>
           </div>
           <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">What areas do you serve?</h3>
+            <h3 class="text-xl font-semibold mb-2">What areas do you serve for electrical services?</h3>
             <p class="text-muted-foreground">We serve La Mirada, Whittier, Cerritos, Buena Park, La Habra, Santa Fe Springs, and surrounding areas in Los Angeles and Orange Counties. Contact us to confirm service availability in your specific location.</p>
           </div>
           <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">Do you work on both residential and commercial projects?</h3>
-            <p class="text-muted-foreground">Yes, we provide comprehensive electrical services for both residential and commercial properties. Our licensed electricians are experienced in everything from home electrical repairs to large commercial installations and upgrades.</p>
+            <h3 class="text-xl font-semibold mb-2">Do you work on both residential and commercial {service.title.toLowerCase()} projects?</h3>
+            <p class="text-muted-foreground">Yes, we provide comprehensive {service.title.toLowerCase()} services for both residential and commercial properties. Our licensed electricians are experienced in everything from home electrical repairs to large commercial installations and upgrades.</p>
           </div>
           <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">How long do electrical projects typically take?</h3>
-            <p class="text-muted-foreground">The duration depends on the scope of work and property type. Simple installations may take a few hours, while complex projects can take several days. We provide detailed timelines during your free consultation and account for local permit requirements.</p>
+            <h3 class="text-xl font-semibold mb-2">How long does {service.title.toLowerCase()} take in Whittier?</h3>
+            <p class="text-muted-foreground">The duration depends on the scope of work and property type. Simple installations may take a few hours, while complex projects in Whittier's historic homes can take several days. We provide detailed timelines during your free consultation and account for local permit requirements.</p>
           </div>
           <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">Do you handle permits and inspections?</h3>
-            <p class="text-muted-foreground">Yes, we handle all permit applications and inspections for electrical work. Our licensed electricians are familiar with local electrical codes and work closely with building departments to ensure compliance.</p>
+            <h3 class="text-xl font-semibold mb-2">Do you handle permits for {service.title.toLowerCase()} in Cerritos?</h3>
+            <p class="text-muted-foreground">Yes, we handle all permit applications and inspections for {service.title.toLowerCase()} work in Cerritos. Our licensed electricians are familiar with Cerritos' specific electrical codes and work closely with the building department to ensure compliance.</p>
           </div>
           <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">What should I do if I have an electrical emergency?</h3>
+            <h3 class="text-xl font-semibold mb-2">What should I do if I have an electrical emergency in my area?</h3>
             <p class="text-muted-foreground">If you have an electrical emergency, call our emergency line immediately at (657) 239-6331. If there's an electrical fire, call 911 first, then call us. Never attempt to repair electrical emergencies yourself as this can be dangerous. We provide 24/7 emergency service throughout our service area.</p>
           </div>
         </div>

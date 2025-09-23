@@ -14,6 +14,7 @@ import { outletRepairServices } from '../data/services/outlet-repair-services';
 import { lightingInstallation } from '../data/services/lighting-installation';
 import { electricalInspection } from '../data/services/electrical-inspection';
 import { smartHomeElectrical } from '../data/services/smart-home-electrical';
+import { sampleService } from '../data/services/sample-service';
 
 // City data imports
 import { laMirada } from '../data/cities/la-mirada';
@@ -96,6 +97,9 @@ export const services: Service[] = [
   lightingInstallation,
   electricalInspection,
   smartHomeElectrical,
+  
+  // Template Testing
+  sampleService,
 ];
 
 // City data collection

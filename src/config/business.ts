@@ -11,6 +11,7 @@ export interface BusinessConfig {
     description: string;
     founded: string;
     license: string;
+    licenseUrl: string;
   };
   contact: {
     main: {
@@ -88,7 +89,8 @@ export const businessConfig: BusinessConfig = {
     tagline: "The first ones you call",
     description: "Professional electrical services for residential and commercial properties. Licensed, insured, and committed to excellence.",
     founded: "2024",
-    license: "C-10 License #1120441"
+    license: "C-10 License #1120441",
+    licenseUrl: "https://www2.cslb.ca.gov/onlineservices/checklicenseII/checklicense.aspx"
   },
   contact: {
     main: {
