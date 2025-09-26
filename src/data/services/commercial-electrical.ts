@@ -6,21 +6,21 @@ export const commercialElectrical = {
   id: 'commercial-electrical',
   title: 'Commercial Electrical',
   slug: 'commercial-electrical',
-  description: 'Professional commercial electrical services for businesses, offices, and industrial facilities. We serve La Mirada, Whittier, Cerritos, and surrounding areas with comprehensive electrical solutions.',
+  description: 'Professional commercial electrical services for businesses, offices, and industrial facilities. Comprehensive electrical solutions with full code compliance and warranty protection.',
   shortDescription: 'Professional commercial electrical services for your business.',
   icon: '🏢',
   category: 'commercial',
   features: [
-    'Office building wiring and retail space electrical systems',
-    'Industrial electrical systems and power distribution',
-    'Electrical panel upgrades for commercial properties',
-    'Lighting systems and emergency lighting installation',
-    'Fire alarm systems and security system wiring',
-    'Data center electrical and electrical maintenance services',
-    'Electrical code compliance and permit handling',
-    '24/7 emergency support',
-    'Licensed and insured electricians',
-    'Commercial project management'
+    'Office building wiring',
+    'Retail space electrical systems',
+    'Industrial electrical systems',
+    'Electrical panel upgrades',
+    'Lighting systems installation',
+    'Fire alarm systems',
+    'Security system wiring',
+    'Data center electrical',
+    'Code compliance and permits',
+    'Emergency support'
   ],
   benefits: [
     'Licensed C-10 electrical contractor with full insurance',
@@ -35,30 +35,51 @@ export const commercialElectrical = {
     '/images/services/commercial-electrical-whittier-1.jpg',
     '/images/services/commercial-electrical-cerritos-1.jpg'
   ],
+  // Enhanced content fields
+  specifications: {
+    duration: '1-5 days depending on project size',
+    complexity: 'Advanced' as const,
+    permits: true,
+    warranty: '2-year warranty on all commercial work',
+    materials: ['Commercial-grade wiring', 'Industrial panels', 'Emergency lighting', 'Fire safety systems']
+  },
+  process: {
+    step1: 'Project assessment and planning',
+    step2: 'Permit acquisition and scheduling',
+    step3: 'Professional installation',
+    step4: 'Testing and certification'
+  },
+  localExpertise: {
+    commonIssues: [
+      'Outdated commercial electrical systems',
+      'Insufficient power capacity',
+      'Code compliance issues',
+      'Emergency lighting failures'
+    ],
+    codeRequirements: 'California Commercial Electrical Code compliance with local permit requirements',
+    permitProcess: 'Commercial permits required for most electrical work'
+  },
+  technicalDetails: {
+    voltage: '120V/240V/480V commercial systems',
+    amperage: 'Up to 1000A commercial panels',
+    codeCompliance: ['NEC 2023', 'California Electrical Code', 'Local commercial codes']
+  },
+  cta: {
+    estimateText: 'Free estimates available for all commercial electrical projects',
+    contactText: 'Call for personalized pricing based on your business needs'
+  },
   seo: {
-    title: `Commercial Electrical in La Mirada, Whittier & Cerritos | ${companyInfo.name}`,
-    description: 'Professional commercial electrical services in La Mirada, Whittier, Cerritos, and surrounding areas. Licensed C-10 electrical contractor with 24/7 emergency service. Free estimates available.',
+    title: `Commercial Electrical Services | ${companyInfo.name}`,
+    description: 'Professional commercial electrical services for businesses, offices, and industrial facilities. Licensed electricians with full code compliance.',
     keywords: [
-      'commercial electrical la mirada',
-      'commercial electrical whittier',
-      'commercial electrical cerritos',
-      'business electrical la mirada',
-      'office electrical whittier',
-      'industrial electrical cerritos',
-      'electrician la mirada',
-      'electrician whittier',
-      'electrician cerritos',
-      'licensed electrician california',
-      'emergency electrician near me',
-      'electrical contractor la mirada',
-      'electrical services whittier',
-      'electrical repair cerritos',
-      'C-10 electrical contractor',
-      '24/7 emergency electrician',
-      'free electrical estimates',
-      'electrical panel upgrade la mirada',
-      'residential electrician whittier',
-      'commercial electrician cerritos'
+      'commercial electrical',
+      'business electrical',
+      'office electrical',
+      'industrial electrical',
+      'electrical contractor',
+      'licensed electrician',
+      'commercial electrical contractor',
+      'business electrical services'
     ]
   }
 };

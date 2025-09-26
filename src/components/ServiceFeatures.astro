@@ -1,0 +1,40 @@
+---
+// Service Features Component
+// Displays service features in a clean, scannable format
+
+export interface Props {
+  service: {
+    title: string;
+    features: string[];
+  };
+}
+
+const { service } = Astro.props;
+---
+
+<section class="py-16 px-4 bg-muted/30">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">What We Include</h2>
+    <div class="max-w-4xl mx-auto">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {service.features.map((feature) => (
+          <div class="bg-card p-6 rounded-lg border hover:shadow-md transition-shadow">
+            <div class="flex items-start gap-4">
+              <div class="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                <svg class="w-4 h-4 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-lg font-semibold mb-2">{feature}</h3>
+                <p class="text-muted-foreground text-sm">
+                  Professional installation and service to meet your electrical needs.
+                </p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

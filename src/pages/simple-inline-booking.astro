@@ -1,0 +1,121 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCompanyInfo } from '../config/business';
+
+const companyInfo = getCompanyInfo();
+---
+
+<Layout 
+	title={`Simple Inline Booking | ${companyInfo.name}`}
+	description="Simple inline booking form example"
+>
+	<main class="min-h-screen bg-background py-8">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-8">
+				<h1 class="text-3xl font-bold mb-4">Simple Inline Booking Form</h1>
+				<p class="text-muted-foreground">
+					This demonstrates the new personalized booking approach with minimal friction.
+				</p>
+			</div>
+			
+			<!-- Simple inline form example -->
+			<div class="max-w-md mx-auto">
+				<div class="bg-card p-6 rounded-lg border shadow-sm">
+					<div class="text-center mb-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">⚡</span>
+						</div>
+						<h2 class="text-2xl font-bold mb-3">Get Your Free Quote</h2>
+						<p class="text-muted-foreground">
+							Tell us about your electrical project and we'll provide a detailed estimate.
+						</p>
+					</div>
+					
+					<form id="simple-booking-form" class="space-y-4">
+						<div class="grid grid-cols-2 gap-3">
+							<input
+								type="text"
+								id="firstName"
+								placeholder="First Name"
+								required
+								class="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+							/>
+							<input
+								type="text"
+								id="lastName"
+								placeholder="Last Name"
+								required
+								class="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+							/>
+						</div>
+						
+						<input
+							type="email"
+							id="email"
+							placeholder="Email Address"
+							required
+							class="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+						/>
+						
+						<button
+							type="submit"
+							class="w-full bg-primary text-primary-foreground px-4 py-2 rounded-md font-semibold hover:bg-primary/90 transition-colors"
+						>
+							Start Booking Process
+						</button>
+					</form>
+				</div>
+			</div>
+			
+			<!-- Integration instructions -->
+			<div class="mt-12 max-w-4xl mx-auto">
+				<h2 class="text-2xl font-bold text-center mb-8">How It Works</h2>
+				<div class="grid md:grid-cols-3 gap-6">
+					<div class="text-center p-6">
+						<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-xl">1</span>
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Simple Start</h3>
+						<p class="text-muted-foreground">
+							User enters just name and email - minimal friction to begin the process.
+						</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-xl">2</span>
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Personalized Modal</h3>
+						<p class="text-muted-foreground">
+							Opens a personalized modal that addresses them by name and guides them through the full booking process.
+						</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-xl">3</span>
+						</div>
+						<h3 class="text-lg font-semibold mb-2">Complete Booking</h3>
+						<p class="text-muted-foreground">
+							Full booking form with service selection, scheduling, and detailed information collection.
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<script>
+	// Simple form handling
+	document.getElementById('simple-booking-form')?.addEventListener('submit', (e) => {
+		e.preventDefault();
+		
+		const firstName = (document.getElementById('firstName') as HTMLInputElement)?.value;
+		const lastName = (document.getElementById('lastName') as HTMLInputElement)?.value;
+		const email = (document.getElementById('email') as HTMLInputElement)?.value;
+		
+		if (firstName && lastName && email) {
+			alert(`Hello ${firstName}! This would open the personalized booking modal with your information.`);
+			console.log('Booking data:', { firstName, lastName, email });
+		}
+	});
+</script>

@@ -1,0 +1,81 @@
+---
+// Service Local Area Section Component
+// Displays cities we serve with clickable links to service-specific city pages
+
+import { getAllCities } from '../lib/data';
+
+export interface Props {
+  service: {
+    title: string;
+    slug: string;
+  };
+}
+
+const { service } = Astro.props;
+const cities = getAllCities();
+---
+
+<section id="local-area" class="py-16 px-4">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">Serving Your Local Area</h2>
+    <p class="text-xl text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
+      We provide {service.title.toLowerCase()} services in these California cities and surrounding areas. Click on any city to learn more about our services in that area.
+    </p>
+    <div class="grid lg:grid-cols-3 gap-8">
+      {cities.map((city) => (
+        <a href={`/services/${service.slug}/${city.slug}`} class="group">
+          <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
+            <h3 class="text-xl font-semibold mb-4 text-primary group-hover:text-primary transition-colors">
+              {service.title} in {city.name}
+            </h3>
+            <p class="text-muted-foreground mb-4">
+              {city.name === 'La Mirada' && "From homes built in the 1960s to modern developments, La Mirada's diverse housing requires specialized electrical expertise. We understand the unique challenges facing local property owners."}
+              {city.name === 'Whittier' && "Whittier's mix of historic homes and modern developments requires careful electrical planning. Our team is experienced with both historic preservation and contemporary electrical needs."}
+              {city.name === 'Cerritos' && "Cerritos' modern infrastructure and focus on technology requires advanced electrical solutions. We're experienced with smart home installations and modern electrical systems."}
+            </p>
+            <ul class="space-y-2 text-sm text-muted-foreground mb-4">
+              {city.name === 'La Mirada' && (
+                <>
+                  <li>• Local permit handling</li>
+                  <li>• California electrical code compliance</li>
+                  <li>• Area-specific electrical solutions</li>
+                  <li>• Building department coordination</li>
+                </>
+              )}
+              {city.name === 'Whittier' && (
+                <>
+                  <li>• Historic home considerations</li>
+                  <li>• Local permit requirements</li>
+                  <li>• Code compliance expertise</li>
+                  <li>• Neighborhood-specific solutions</li>
+                </>
+              )}
+              {city.name === 'Cerritos' && (
+                <>
+                  <li>• Modern electrical systems</li>
+                  <li>• Smart home integration</li>
+                  <li>• Energy-efficient solutions</li>
+                  <li>• Commercial electrical experience</li>
+                </>
+              )}
+            </ul>
+            <div class="space-y-2 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span>
+                <span class="text-sm text-foreground">Population: {city.population}</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span>
+                <span class="text-sm text-foreground">{city.serviceAreas.length} service areas</span>
+              </div>
+            </div>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-muted-foreground">Get {service.title.toLowerCase()} in {city.name}</span>
+              <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

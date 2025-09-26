@@ -6,21 +6,21 @@ export const residentialWiring = {
   id: 'residential-wiring',
   title: 'Residential Wiring',
   slug: 'residential-wiring',
-  description: 'Complete residential electrical wiring services for new construction, renovations, and upgrades. We serve La Mirada, Whittier, Cerritos, and surrounding areas with professional electrical solutions.',
+  description: 'Complete residential electrical wiring services for new construction, renovations, and upgrades. Professional installation with full code compliance and warranty protection.',
   shortDescription: 'Professional residential wiring services for your home.',
   icon: '🏠',
   category: 'residential',
   features: [
-    'New home wiring and electrical panel upgrades',
+    'New home electrical systems',
     'Outlet and switch installation',
-    'GFCI outlet installation for kitchens and bathrooms',
-    'Whole house rewiring for older homes',
-    'Smart home wiring and USB outlet installation',
-    'Circuit breaker installation and electrical outlet repair',
-    'Lighting installation and ceiling fan wiring',
-    'Electrical code compliance and permit handling',
-    '24/7 emergency support',
-    'Licensed and insured electricians'
+    'GFCI outlet installation',
+    'Whole house rewiring',
+    'Smart home wiring',
+    'Circuit breaker installation',
+    'Lighting installation',
+    'Code compliance and permits',
+    'Emergency support',
+    'Licensed electricians'
   ],
   benefits: [
     'Licensed C-10 electrical contractor with full insurance',
@@ -35,30 +35,51 @@ export const residentialWiring = {
     '/images/services/residential-wiring-whittier-1.jpg',
     '/images/services/residential-wiring-cerritos-1.jpg'
   ],
+  // Enhanced content fields
+  specifications: {
+    duration: '1-3 days for full rewiring',
+    complexity: 'Intermediate' as const,
+    permits: true,
+    warranty: '2-year warranty on all work',
+    materials: ['Copper wiring', 'GFCI outlets', 'Circuit breakers', 'Electrical panels']
+  },
+  process: {
+    step1: 'Initial assessment and planning',
+    step2: 'Permit acquisition and scheduling',
+    step3: 'Professional installation',
+    step4: 'Inspection and testing'
+  },
+  localExpertise: {
+    commonIssues: [
+      'Knob and tube wiring in older homes',
+      'Insufficient electrical capacity',
+      'Outdated electrical panels',
+      'Aluminum wiring concerns'
+    ],
+    codeRequirements: 'California Electrical Code compliance with local permit requirements',
+    permitProcess: 'Building permits required for major electrical work'
+  },
+  technicalDetails: {
+    voltage: '120V/240V systems',
+    amperage: '15A to 200A panels',
+    codeCompliance: ['NEC 2023', 'California Electrical Code', 'Local building codes']
+  },
+  cta: {
+    estimateText: 'Free estimates available for all residential wiring projects',
+    contactText: 'Call for personalized pricing based on your specific needs'
+  },
   seo: {
-    title: `Residential Wiring in La Mirada, Whittier & Cerritos | ${companyInfo.name}`,
-    description: 'Professional residential wiring services in La Mirada, Whittier, Cerritos, and surrounding areas. Licensed C-10 electrical contractor with 24/7 emergency service. Free estimates available.',
+    title: `Residential Wiring Services | ${companyInfo.name}`,
+    description: 'Professional residential wiring services for new construction, renovations, and upgrades. Licensed electricians with full code compliance.',
     keywords: [
-      'residential wiring la mirada',
-      'residential wiring whittier',
-      'residential wiring cerritos',
-      'home electrical wiring la mirada',
-      'house wiring whittier',
-      'electrical installation cerritos',
-      'electrician la mirada',
-      'electrician whittier',
-      'electrician cerritos',
-      'licensed electrician california',
-      'emergency electrician near me',
-      'electrical contractor la mirada',
-      'electrical services whittier',
-      'electrical repair cerritos',
-      'C-10 electrical contractor',
-      '24/7 emergency electrician',
-      'free electrical estimates',
-      'electrical panel upgrade la mirada',
-      'residential electrician whittier',
-      'commercial electrician cerritos'
+      'residential wiring',
+      'home electrical wiring',
+      'house wiring',
+      'electrical installation',
+      'electrical contractor',
+      'licensed electrician',
+      'electrical panel upgrade',
+      'whole house rewiring'
     ]
   }
 };

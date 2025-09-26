@@ -1,0 +1,68 @@
+---
+// Service Pricing & Estimates Section Component
+// Displays pricing information and payment options
+
+export interface Props {
+  service?: {
+    title: string;
+  };
+}
+
+const { service } = Astro.props;
+---
+
+<section class="py-16 px-4 bg-muted/30">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">Pricing & Estimates</h2>
+    <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <div class="bg-card p-8 rounded-lg border shadow-sm">
+        <h3 class="text-2xl font-semibold mb-4 text-primary">Free Estimates</h3>
+        <p class="text-muted-foreground mb-6">
+          We provide detailed, free estimates for all electrical services. Our licensed electricians will assess your needs and provide transparent pricing with no hidden fees.
+        </p>
+        <ul class="space-y-3 text-muted-foreground">
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            No obligation estimates
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            Detailed project breakdown
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            Competitive market pricing
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            Clear timeline expectations
+          </li>
+        </ul>
+      </div>
+      <div class="bg-card p-8 rounded-lg border shadow-sm">
+        <h3 class="text-2xl font-semibold mb-4 text-primary">Payment Options</h3>
+        <p class="text-muted-foreground mb-6">
+          We offer flexible payment options to make electrical services accessible for all our customers.
+        </p>
+        <ul class="space-y-3 text-muted-foreground">
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            Cash, check, and credit cards accepted
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            Financing options available
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            Insurance billing assistance
+          </li>
+          <li class="flex items-center gap-2">
+            <span class="w-2 h-2 bg-primary rounded-full"></span>
+            Warranty on all work
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

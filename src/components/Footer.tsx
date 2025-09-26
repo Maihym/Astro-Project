@@ -47,6 +47,7 @@ export default function Footer({ className }: FooterProps) {
     { label: 'Services', href: '/services' },
     { label: 'About Us', href: '/about' },
     { label: 'Contact', href: '/contact' },
+    { label: 'FAQ', href: '/electrical-faq' },
     { label: 'Get Free Quote', href: '/quote' },
     { label: 'Emergency Service', href: '/emergency' }
   ]
@@ -65,18 +66,18 @@ export default function Footer({ className }: FooterProps) {
         <div className="py-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
-            <a href="/" className="flex items-center space-x-2 hover:opacity-80 transition-opacity">
+            <a href="/" className="flex flex-col sm:flex-row items-center sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 hover:opacity-80 transition-opacity">
               <img 
                 src={businessInfo.branding.logo} 
                 alt={`${companyInfo.name} Logo`} 
                 className="h-12 w-auto"
               />
-              <span className="text-xl font-bold">{companyInfo.name}</span>
+              <span className="text-3xl sm:text-xl font-bold">{companyInfo.name}</span>
             </a>
             <p className="text-muted-foreground text-sm leading-relaxed">
               {companyInfo.description}
             </p>
-            <div className="flex space-x-2">
+            <div className="flex space-x-3">
               {socialLinkComponents.map((social) => {
                 const Icon = social.icon
                 return (
@@ -84,17 +85,16 @@ export default function Footer({ className }: FooterProps) {
                     key={social.label}
                     variant="ghost"
                     size="sm"
-                    className="h-8 w-8 p-0 hover:bg-primary/10"
+                    className="h-12 w-12 sm:h-8 sm:w-8 p-0 hover:bg-primary/10"
                     asChild
                   >
                     <a 
                       href={social.href} 
-                      target="_blank"
+                      target="_blank" 
                       rel="noopener noreferrer"
                       aria-label={social.label}
-                      title={`Visit our ${social.label} page`}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className="h-8 w-8 sm:h-4 sm:w-4" />
                     </a>
                   </Button>
                 )
@@ -102,12 +102,12 @@ export default function Footer({ className }: FooterProps) {
             </div>
           </div>
 
-          {/* Services */}
+          {/* Our Services */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Our Services</h3>
             <ul className="space-y-2">
               {services.map((service) => (
-                <li key={service.name}>
+                <li key={service.href}>
                   <a 
                     href={service.href} 
                     className="text-sm text-muted-foreground hover:text-foreground transition-colors"
@@ -140,78 +140,60 @@ export default function Footer({ className }: FooterProps) {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Contact Info</h3>
             <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <Phone className="h-4 w-4 text-primary" />
+                <a 
+                  href={`tel:${contactInfo.main.phone}`}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {contactInfo.main.phone}
+                </a>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Mail className="h-4 w-4 text-primary" />
+                <a 
+                  href={`mailto:${contactInfo.main.email}`}
+                  className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  {contactInfo.main.email}
+                </a>
+              </div>
               <div className="flex items-start space-x-3">
-                <Phone className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium">Phone</p>
-                  <a 
-                    href={`tel:${contactInfo.main.phone.replace(/\D/g, '')}`}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
-                    title={`Call ${contactInfo.main.phone}`}
-                  >
-                    {contactInfo.main.phone}
-                  </a>
+                <MapPin className="h-4 w-4 text-primary mt-0.5" />
+                <div className="text-sm text-muted-foreground">
+                  <div>{contactInfo.main.address.street}</div>
+                  <div>{contactInfo.main.address.city}, {contactInfo.main.address.state} {contactInfo.main.address.zip}</div>
                 </div>
               </div>
               <div className="flex items-start space-x-3">
-                <Mail className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium">Email</p>
-                  <a 
-                    href={`mailto:${contactInfo.main.email}`}
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
-                    title={`Email ${contactInfo.main.email}`}
-                  >
-                    {contactInfo.main.email}
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <MapPin className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium">Address</p>
-                  <a 
-                    href={`https://maps.google.com/?q=${encodeURIComponent(contactInfo.main.address.full)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
-                    title={`View ${contactInfo.main.address.full} on Google Maps`}
-                  >
-                    {contactInfo.main.address.street}<br />
-                    {contactInfo.main.address.city}, {contactInfo.main.address.state} {contactInfo.main.address.zip}
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <Clock className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium">Hours</p>
-                  <p className="text-sm text-muted-foreground">
-                    {hoursInfo.regular.weekdays}<br />
-                    {hoursInfo.emergency}
-                  </p>
+                <Clock className="h-4 w-4 text-primary mt-0.5" />
+                <div className="text-sm text-muted-foreground">
+                  <div>24/7 Emergency Service</div>
+                  <div>Mon-Fri: {hoursInfo.weekday}</div>
+                  <div>Sat: {hoursInfo.saturday}</div>
+                  <div>Sun: {hoursInfo.sunday}</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <Separator />
+        <Separator className="my-8" />
 
         {/* Newsletter Signup */}
         <div className="py-8">
-          <div className="max-w-md mx-auto text-center space-y-4">
-            <h3 className="text-lg font-semibold">Stay Updated</h3>
-            <p className="text-sm text-muted-foreground">
-              Subscribe to our newsletter for electrical tips and special offers.
+          <div className="max-w-md mx-auto text-center">
+            <h3 className="text-lg font-semibold mb-2">Stay Updated</h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              Get the latest electrical tips and service updates.
             </p>
             <div className="flex space-x-2">
               <Input 
+                type="email" 
                 placeholder="Enter your email" 
                 className="flex-1"
-                type="email"
               />
-              <Button size="sm" className="px-4">
+              <Button className="px-6">
                 Subscribe
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -219,22 +201,25 @@ export default function Footer({ className }: FooterProps) {
           </div>
         </div>
 
-        <Separator />
+        <Separator className="my-8" />
 
         {/* Bottom Footer */}
         <div className="py-6 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-muted-foreground">
-            © {currentYear} <a href="/" className="hover:text-primary transition-colors">{companyInfo.name}</a>. All rights reserved.
+            © {currentYear} {companyInfo.name}. All rights reserved.
           </div>
           <div className="flex space-x-6 text-sm">
-            <a href="/privacy" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a 
+              href="/privacy" 
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
               Privacy Policy
             </a>
-            <a href="/terms" className="text-muted-foreground hover:text-foreground transition-colors">
+            <a 
+              href="/terms" 
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
               Terms of Service
-            </a>
-            <a href="/licenses" className="text-muted-foreground hover:text-foreground transition-colors">
-              Licenses
             </a>
           </div>
         </div>

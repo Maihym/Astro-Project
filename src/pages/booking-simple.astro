@@ -1,0 +1,38 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCompanyInfo } from '../config/business';
+
+const companyInfo = getCompanyInfo();
+---
+
+<Layout 
+	title={`Simple Booking Test | ${companyInfo.name}`}
+	description="Simple test page for the Hero Booking Form"
+>
+	<main class="min-h-screen bg-background py-8">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-8">
+				<h1 class="text-3xl font-bold mb-4">Simple Booking Form Test</h1>
+				<p class="text-muted-foreground">
+					Testing the Hero Booking Form with minimal setup
+				</p>
+			</div>
+			
+			<!-- Simple Booking Form -->
+			<div id="simple-booking-form"></div>
+		</div>
+	</main>
+</Layout>
+
+<script>
+	// Simple test without React - just check if components can be imported
+	console.log('Testing booking form imports...');
+	
+	// Test if we can import the components
+	import('../components/booking/HeroBookingForm.js').then((module) => {
+		console.log('✅ HeroBookingForm imported successfully');
+		console.log('Available exports:', Object.keys(module));
+	}).catch((error) => {
+		console.error('❌ Failed to import HeroBookingForm:', error);
+	});
+</script>

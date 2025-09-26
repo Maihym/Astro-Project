@@ -30,12 +30,14 @@ const cities = getAllCities();
 >
 	<main class="min-h-screen bg-background">
 		<!-- Hero Section -->
-		<section class="py-20 px-4 bg-gradient-to-br from-primary/10 via-background to-secondary/10">
-			<div class="container mx-auto text-center">
-				<h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+		<section class="py-20 px-4 relative bg-cover bg-center bg-no-repeat" style="background-image: url('/Full Van.jpg');">
+			<!-- Overlay for better text readability -->
+			<div class="absolute inset-0 bg-black/40"></div>
+			<div class="container mx-auto text-center relative z-10">
+				<h1 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
 					Professional Electrical Services in Southern California
 				</h1>
-				<p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+				<p class="text-xl text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-md">
 					{companyInfo.name} provides reliable, licensed electrical services for residential and commercial properties. 
 					Available 24/7 for emergency repairs. Quality workmanship you can trust.
 				</p>
@@ -50,17 +52,17 @@ const cities = getAllCities();
 						View Services
 					</a>
 				</div>
-				<div class="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-muted-foreground">
+				<div class="flex flex-col sm:flex-row items-center justify-center gap-6 text-sm text-white/90">
 					<div class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+						<span class="w-2 h-2 bg-green-400 rounded-full"></span>
 						<span>Licensed & Insured</span>
 					</div>
 					<div class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+						<span class="w-2 h-2 bg-green-400 rounded-full"></span>
 						<span>24/7 Emergency Service</span>
 					</div>
 					<div class="flex items-center gap-2">
-						<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+						<span class="w-2 h-2 bg-green-400 rounded-full"></span>
 						<span>Free Estimates</span>
 					</div>
 				</div>

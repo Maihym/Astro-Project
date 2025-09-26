@@ -1,0 +1,153 @@
+---
+// Service + City FAQ Component
+// Shows service-specific questions for that city
+
+export interface Props {
+  service: {
+    title: string;
+    slug: string;
+  };
+  city: {
+    name: string;
+    slug: string;
+  };
+}
+
+const { service, city } = Astro.props;
+
+const getServiceCityFAQs = (serviceSlug: string, cityName: string) => {
+  const serviceCityFAQs: Record<string, Array<{question: string; answer: string}>> = {
+    'residential-wiring': [
+      {
+        question: `Do you provide residential wiring services in ${cityName}?`,
+        answer: `Yes, we provide comprehensive residential wiring services in ${cityName}. Our licensed electricians are experienced with both historic and modern homes in ${cityName} and surrounding areas.`
+      },
+      {
+        question: `How long does residential wiring take in ${cityName}?`,
+        answer: `Residential wiring projects in ${cityName} typically take 1-3 days for full rewiring, depending on the size of your home and complexity of the electrical system. We provide detailed timelines during your free consultation.`
+      },
+      {
+        question: `Do you need permits for residential wiring in ${cityName}?`,
+        answer: `Yes, most residential wiring work in ${cityName} requires permits. We handle all permit applications and inspections with the ${cityName} building department to ensure compliance with local codes.`
+      },
+      {
+        question: `What areas of ${cityName} do you serve?`,
+        answer: `We serve all areas of ${cityName} including residential neighborhoods, commercial districts, and surrounding communities. Contact us to confirm service availability in your specific location within ${cityName}.`
+      }
+    ],
+    'commercial-electrical': [
+      {
+        question: `Do you provide commercial electrical services in ${cityName}?`,
+        answer: `Yes, we provide comprehensive commercial electrical services in ${cityName} including office buildings, retail spaces, industrial facilities, and more. Our team is experienced with commercial projects of all sizes in ${cityName}.`
+      },
+      {
+        question: `What commercial electrical projects have you completed in ${cityName}?`,
+        answer: `We have completed numerous commercial electrical projects in ${cityName} including office buildings, retail spaces, and industrial facilities. Our licensed electricians are familiar with local commercial electrical requirements.`
+      },
+      {
+        question: `Do you provide 24/7 commercial electrical support in ${cityName}?`,
+        answer: `Yes, we provide 24/7 emergency electrical support for commercial clients in ${cityName}. Our emergency team can respond quickly to minimize downtime for your business operations.`
+      },
+      {
+        question: `What are your commercial electrical rates in ${cityName}?`,
+        answer: `Commercial electrical rates in ${cityName} vary based on project scope and complexity. We provide detailed estimates for all commercial projects during your free consultation.`
+      }
+    ],
+    'emergency-repairs': [
+      {
+        question: `Do you provide emergency electrical repairs in ${cityName}?`,
+        answer: `Yes, we provide 24/7 emergency electrical repair services in ${cityName}. Our emergency team responds within 60 minutes and carries fully stocked service vehicles to resolve most issues on the first visit.`
+      },
+      {
+        question: `What electrical emergencies do you handle in ${cityName}?`,
+        answer: `We handle all types of electrical emergencies in ${cityName} including power outages, electrical fires, exposed wiring, burning smells, sparking outlets, and any situation that poses an immediate safety risk.`
+      },
+      {
+        question: `How quickly can you respond to electrical emergencies in ${cityName}?`,
+        answer: `We provide 24/7 emergency service in ${cityName} with an average response time of 60 minutes. Our emergency team is always on call and strategically located to serve ${cityName} quickly.`
+      },
+      {
+        question: `Do emergency repairs cost more in ${cityName}?`,
+        answer: `Emergency service in ${cityName} may include additional fees for after-hours response, but we provide transparent pricing and will explain all costs before beginning work.`
+      }
+    ],
+    'ev-charging-installation': [
+      {
+        question: `Do you install EV charging stations in ${cityName}?`,
+        answer: `Yes, we install EV charging stations in ${cityName} including Level 1, Level 2, and DC fast charging solutions for both residential and commercial applications.`
+      },
+      {
+        question: `How long does EV charging station installation take in ${cityName}?`,
+        answer: `EV charging station installation in ${cityName} typically takes 2-4 hours for Level 2 stations, depending on your electrical system and installation requirements.`
+      },
+      {
+        question: `Do you need permits for EV charging station installation in ${cityName}?`,
+        answer: `Yes, most EV charging station installations in ${cityName} require permits. We handle all permit applications and inspections with the ${cityName} building department.`
+      },
+      {
+        question: `Can you help choose the right EV charging station for ${cityName}?`,
+        answer: `Yes, we can help you choose the right EV charging solution for ${cityName} based on your vehicle, electrical system, and charging needs.`
+      }
+    ]
+  };
+
+  return serviceCityFAQs[serviceSlug] || [
+    {
+      question: `Do you provide ${service.title.toLowerCase()} services in ${cityName}?`,
+      answer: `Yes, we provide ${service.title.toLowerCase()} services in ${cityName}. Our licensed electricians are experienced with local electrical codes and requirements in ${cityName}.`
+    },
+    {
+      question: `How quickly can you respond to ${service.title.toLowerCase()} requests in ${cityName}?`,
+      answer: `We typically respond to ${service.title.toLowerCase()} requests in ${cityName} within 60 minutes, 24/7. Our team is strategically located to serve ${cityName} and surrounding areas quickly.`
+    },
+    {
+      question: `Do you need permits for ${service.title.toLowerCase()} in ${cityName}?`,
+      answer: `Most ${service.title.toLowerCase()} work in ${cityName} requires permits. We handle all permit applications and inspections with the ${cityName} building department to ensure compliance.`
+    },
+    {
+      question: `What areas of ${cityName} do you serve for ${service.title.toLowerCase()}?`,
+      answer: `We serve all areas of ${cityName} for ${service.title.toLowerCase()} services. Contact us to confirm service availability in your specific location within ${cityName}.`
+    }
+  ];
+};
+
+const serviceCityFAQs = getServiceCityFAQs(service.slug, city.name);
+---
+
+<section class="py-16 px-4 bg-muted/30">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-4 mb-8">
+        {serviceCityFAQs.map((faq: {question: string; answer: string}, index: number) => (
+          <div class="bg-card border rounded-lg">
+            <details class="group">
+              <summary class="flex items-center justify-between w-full px-6 py-4 text-left font-semibold text-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                <span>{faq.question}</span>
+                <svg 
+                  class="w-5 h-5 text-muted-foreground transition-transform duration-200 group-open:rotate-180" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </summary>
+              <div class="px-6 pb-4 text-muted-foreground border-t">
+                <p class="pt-4">{faq.answer}</p>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Link to main FAQ page -->
+      <div class="text-center">
+        <p class="text-muted-foreground mb-4">Have more questions?</p>
+        <a href="/electrical-faq" class="text-primary hover:text-primary/80 font-semibold">
+          View All Electrical FAQs →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

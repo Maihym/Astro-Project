@@ -20,9 +20,7 @@ export const backupGeneratorInstallation = {
     'Propane generator installation',
     'Generator maintenance services',
     'UPS system installation',
-    'Battery backup systems',
-    'Generator load testing',
-    'Emergency power solutions'
+    'Battery backup systems'
   ],
   benefits: [
     'Power outage protection',
@@ -36,9 +34,48 @@ export const backupGeneratorInstallation = {
     '/images/services/backup-generator-1.jpg',
     '/images/services/backup-generator-2.jpg'
   ],
+  // Enhanced content fields
+  specifications: {
+    duration: '1-2 days for whole house generators',
+    complexity: 'Advanced' as const,
+    permits: true,
+    warranty: '2-year warranty on all generator installations',
+    materials: ['Generators', 'Transfer switches', 'Electrical panels', 'Safety equipment']
+  },
+  process: {
+    step1: 'Generator sizing and planning',
+    step2: 'Permit acquisition and scheduling',
+    step3: 'Professional installation',
+    step4: 'Testing and certification'
+  },
+  localExpertise: {
+    commonIssues: [
+      'Insufficient electrical capacity',
+      'Transfer switch requirements',
+      'Code compliance needs',
+      'Fuel source connections'
+    ],
+    codeRequirements: 'California Electrical Code compliance for generator installations',
+    permitProcess: 'Building permits required for generator installations'
+  },
+  technicalDetails: {
+    voltage: '120V/240V generator systems',
+    amperage: 'Up to 200A generator capacity',
+    codeCompliance: ['NEC 2023', 'California Electrical Code', 'Generator standards']
+  },
+  cta: {
+    estimateText: 'Free estimates available for all backup generator installations',
+    contactText: 'Call for personalized pricing based on your generator needs'
+  },
   seo: {
     title: `Backup Generator Installation | ${companyInfo.name}`,
     description: 'Professional backup generator installation and electrical connection services. Whole house and portable generator solutions for power outages.',
-    keywords: ['backup generator installation', 'whole house generator', 'automatic transfer switch', 'standby generator', 'generator electrical connection']
+    keywords: [
+      'backup generator installation',
+      'whole house generator',
+      'automatic transfer switch',
+      'standby generator',
+      'generator electrical connection'
+    ]
   }
 };

@@ -36,6 +36,34 @@ export interface Service {
   features: string[];
   benefits: string[];
   images: string[];
+  // Enhanced fields for better content
+  specifications?: {
+    duration: string;
+    complexity: 'Basic' | 'Intermediate' | 'Advanced';
+    permits: boolean;
+    warranty: string;
+    materials?: string[];
+  };
+  process?: {
+    step1: string;
+    step2: string;
+    step3: string;
+    step4: string;
+  };
+  localExpertise?: {
+    commonIssues: string[];
+    codeRequirements: string;
+    permitProcess?: string;
+  };
+  technicalDetails?: {
+    voltage?: string;
+    amperage?: string;
+    codeCompliance?: string[];
+  };
+  cta?: {
+    estimateText: string;
+    contactText: string;
+  };
   seo: {
     title: string;
     description: string;

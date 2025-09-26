@@ -1,0 +1,70 @@
+---
+// City FAQ Component
+// Shows city-specific electrical questions
+
+export interface Props {
+  city: {
+    name: string;
+    slug: string;
+  };
+}
+
+const { city } = Astro.props;
+
+const cityFAQs = [
+  {
+    question: `Do you serve ${city.name}?`,
+    answer: `Yes, we proudly serve ${city.name} and the surrounding areas. Our licensed electricians are familiar with the local electrical codes and requirements in ${city.name}.`
+  },
+  {
+    question: `How quickly can you respond to electrical service requests in ${city.name}?`,
+    answer: `We typically respond to electrical service requests in ${city.name} within 60 minutes, 24/7. Our team is strategically located to serve ${city.name} and surrounding areas quickly.`
+  },
+  {
+    question: `What electrical services do you provide in ${city.name}?`,
+    answer: `We provide comprehensive electrical services in ${city.name} including residential wiring, commercial electrical, emergency repairs, EV charging installation, and more. All services are performed by licensed C-10 electricians.`
+  },
+  {
+    question: `Do you handle permits for electrical work in ${city.name}?`,
+    answer: `Yes, we handle all permit applications and inspections for electrical work in ${city.name}. Our licensed electricians are familiar with local building codes and work closely with the ${city.name} building department.`
+  }
+];
+---
+
+<section class="py-16 px-4 bg-muted/30">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-4 mb-8">
+        {cityFAQs.map((faq, index) => (
+          <div class="bg-card border rounded-lg">
+            <details class="group">
+              <summary class="flex items-center justify-between w-full px-6 py-4 text-left font-semibold text-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                <span>{faq.question}</span>
+                <svg 
+                  class="w-5 h-5 text-muted-foreground transition-transform duration-200 group-open:rotate-180" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </summary>
+              <div class="px-6 pb-4 text-muted-foreground border-t">
+                <p class="pt-4">{faq.answer}</p>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Link to main FAQ page -->
+      <div class="text-center">
+        <p class="text-muted-foreground mb-4">Have more questions?</p>
+        <a href="/electrical-faq" class="text-primary hover:text-primary/80 font-semibold">
+          View All Electrical FAQs →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

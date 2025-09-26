@@ -1,7 +1,9 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCityBySlug, getAllCities, getAllServices } from '../../lib/data';
+import { getCompanyInfo, getContactInfo } from '../../config/business';
 import type { City } from '../../lib/data';
+import CityFAQ from '../../components/CityFAQ.astro';
 
 export async function getStaticPaths() {
   const cities = getAllCities();
@@ -17,9 +19,75 @@ interface Props {
 
 const { city } = Astro.props;
 const services = getAllServices();
+const companyInfo = getCompanyInfo();
+const contactInfo = getContactInfo();
+
+// Generate LocalBusiness schema for city pages
+function generateLocalBusinessSchema(city: City) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": companyInfo.name,
+    "description": `Professional electrical services in ${city.name}, ${city.stateAbbr}. Licensed C-10 electrical contractor serving ${city.name} and surrounding areas.`,
+    "url": `https://firstelectric.pro/cities/${city.slug}`,
+    "telephone": contactInfo.main.phone,
+    "email": contactInfo.main.email,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": contactInfo.main.address.street,
+      "addressLocality": contactInfo.main.address.city,
+      "addressRegion": contactInfo.main.address.state,
+      "postalCode": contactInfo.main.address.zip,
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": city.coordinates.lat,
+      "longitude": city.coordinates.lng
+    },
+    "areaServed": [
+      {
+        "@type": "City",
+        "name": city.name,
+        "containedInPlace": {
+          "@type": "State",
+          "name": city.state
+        }
+      }
+    ],
+    "serviceType": "Electrical Services",
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Electrical Services",
+      "itemListElement": services.map((service, index) => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.title,
+          "description": service.description
+        },
+        "position": index + 1
+      }))
+    }
+  };
+}
+
+const localBusinessSchema = generateLocalBusinessSchema(city);
 ---
 
-<Layout title={city.seo.title} description={city.seo.description}>
+<Layout 
+  title={city.seo.title} 
+  description={city.seo.description}
+  city={city}
+  breadcrumbs={[
+    { name: "Home", url: "/" },
+    { name: "Cities", url: "/cities" },
+    { name: city.name, url: `/cities/${city.slug}` }
+  ]}
+>
+  <!-- LocalBusiness Schema Markup -->
+  <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)}></script>
+  
   <main class="min-h-screen bg-background">
     <!-- Hero Section -->
     <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
@@ -28,129 +96,153 @@ const services = getAllServices();
           Electrical Services in {city.name}, {city.stateAbbr}
         </h1>
         <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-          {city.description}
+          Professional electrical services in {city.name}, {city.stateAbbr}. Licensed C-10 electrical contractor serving {city.name} and surrounding areas with 24/7 emergency service.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
-            Get Free Quote
+          <button 
+            class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            onclick="openBooking('freeQuote')"
+          >
+            Get Free Quote in {city.name}
           </button>
-          <a href="#services-we-offer" class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors inline-block">
-            View Our Services
+          <a 
+            href={`tel:${city.contact.phone}`}
+            class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors"
+          >
+            Call {city.contact.phone}
           </a>
         </div>
       </div>
     </section>
 
-    <!-- City Info Section -->
+    <!-- Trust Signals Section -->
     <section class="py-16 px-4">
       <div class="container mx-auto">
-        <div class="grid lg:grid-cols-2 gap-12">
-          <div>
-            <h2 class="text-3xl font-bold mb-8">About {city.name}</h2>
-            <div class="space-y-6">
-              <div>
-                <h3 class="text-xl font-semibold mb-2">Population</h3>
-                <p class="text-muted-foreground">{city.population}</p>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold mb-2">Area</h3>
-                <p class="text-muted-foreground">{city.area}</p>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold mb-2">Established</h3>
-                <p class="text-muted-foreground">{city.localInfo.established}</p>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold mb-2">Nickname</h3>
-                <p class="text-muted-foreground">"{city.localInfo.nickname}"</p>
-              </div>
-            </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="text-3xl mb-4">⚡</div>
+            <h3 class="text-lg font-semibold mb-2">C-10 Licensed</h3>
+            <p class="text-muted-foreground text-sm">Licensed C-10 electrical contractor (License #1120441) serving {city.name} and surrounding areas.</p>
           </div>
-          <div>
-            <h2 class="text-3xl font-bold mb-8">Service Areas</h2>
-            <div class="grid grid-cols-2 gap-4">
-              {city.serviceAreas.map((area) => (
-                <div class="bg-card p-4 rounded-lg border">
-                  <h3 class="font-semibold">{area}</h3>
-                </div>
-              ))}
-            </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="text-3xl mb-4">🕐</div>
+            <h3 class="text-lg font-semibold mb-2">24/7 Service</h3>
+            <p class="text-muted-foreground text-sm">24/7 emergency electrical service in {city.name} with 60-minute response time.</p>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="text-3xl mb-4">💰</div>
+            <h3 class="text-lg font-semibold mb-2">Free Estimates</h3>
+            <p class="text-muted-foreground text-sm">Free estimates for all electrical services in {city.name} with no obligation.</p>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <div class="text-3xl mb-4">🛡️</div>
+            <h3 class="text-lg font-semibold mb-2">Fully Insured</h3>
+            <p class="text-muted-foreground text-sm">Fully insured and bonded for your protection and peace of mind in {city.name}.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Local Industries Section -->
+    <!-- Services Section -->
     <section class="py-16 px-4 bg-muted/30">
       <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Major Industries in {city.name}</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {city.localInfo.majorIndustries.map((industry) => (
-            <div class="bg-card p-6 rounded-lg border text-center">
-              <h3 class="text-lg font-semibold">{industry}</h3>
+        <h2 class="text-3xl font-bold text-center mb-12">Our Electrical Services in {city.name}</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.slice(0, 6).map((service) => (
+            <div class="bg-card p-6 rounded-lg border shadow-sm">
+              <div class="text-3xl mb-4">{service.icon}</div>
+              <h3 class="text-xl font-semibold mb-2">{service.title}</h3>
+              <p class="text-muted-foreground mb-4">{service.shortDescription}</p>
+              <a 
+                href={`/services/${service.slug}`}
+                class="text-primary hover:text-primary/80 font-semibold"
+              >
+                Learn More →
+              </a>
             </div>
           ))}
+        </div>
+        <div class="text-center mt-8">
+          <a 
+            href="/services"
+            class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+          >
+            View All Services
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Notable Landmarks Section -->
+    <!-- Local Information Section -->
     <section class="py-16 px-4">
       <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Notable Landmarks</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-          {city.localInfo.notableLandmarks.map((landmark) => (
-            <div class="bg-card p-6 rounded-lg border">
-              <h3 class="text-xl font-semibold mb-2">{landmark}</h3>
-              <p class="text-muted-foreground">A significant landmark in {city.name} that we're proud to serve.</p>
+        <h2 class="text-3xl font-bold text-center mb-12">About {city.name}, {city.stateAbbr}</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-primary mb-2">{city.population}</h3>
+            <p class="text-muted-foreground">Population</p>
+          </div>
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-primary mb-2">{city.area}</h3>
+            <p class="text-muted-foreground">Area</p>
+          </div>
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-primary mb-2">{city.localInfo.established}</h3>
+            <p class="text-muted-foreground">Established</p>
+          </div>
+          <div class="text-center">
+            <h3 class="text-2xl font-bold text-primary mb-2">"{city.localInfo.nickname}"</h3>
+            <p class="text-muted-foreground">Nickname</p>
+          </div>
+        </div>
+        <div class="mt-12 max-w-4xl mx-auto">
+          <p class="text-lg text-muted-foreground text-center mb-8">
+            {city.description}
+          </p>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="text-xl font-semibold mb-4">Major Industries</h4>
+              <ul class="space-y-2">
+                {city.localInfo.majorIndustries.map((industry) => (
+                  <li class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-muted-foreground">{industry}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-xl font-semibold mb-4">Notable Landmarks</h4>
+              <ul class="space-y-2">
+                {city.localInfo.notableLandmarks.map((landmark) => (
+                  <li class="flex items-center gap-2">
+                    <div class="w-2 h-2 bg-primary rounded-full"></div>
+                    <span class="text-muted-foreground">{landmark}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Service Areas Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto">
+        <h2 class="text-3xl font-bold text-center mb-12">We Serve These Areas in {city.name}</h2>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {city.serviceAreas.map((area) => (
+            <div class="bg-card p-4 rounded-lg border text-center">
+              <h3 class="font-semibold">{area}</h3>
             </div>
           ))}
         </div>
       </div>
     </section>
 
-    <!-- Services We Offer Section -->
-    <section id="services-we-offer" class="py-16 px-4 bg-muted/30">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Services We Offer in {city.name}</h2>
-        <p class="text-xl text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
-          Professional electrical services available in {city.name}, {city.stateAbbr} and surrounding areas.
-        </p>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <a href={`/services/${service.slug}/${city.slug}`} class="group">
-              <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
-                <div class="text-4xl mb-4">{service.icon}</div>
-                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                  {service.title} in {city.name}
-                </h3>
-                <p class="text-muted-foreground mb-4">{service.shortDescription}</p>
-                <div class="space-y-2 mb-4">
-                  {service.features.slice(0, 2).map((feature) => (
-                    <div class="flex items-center gap-2">
-                      <span class="w-2 h-2 bg-primary rounded-full"></span>
-                      <span class="text-sm text-foreground">{feature}</span>
-                    </div>
-                  ))}
-                  {service.features.length > 2 && (
-                    <p class="text-sm text-muted-foreground">
-                      +{service.features.length - 2} more features
-                    </p>
-                  )}
-                </div>
-                <div class="flex items-center justify-between">
-                  <div>
-                    <span class="text-lg font-bold text-primary">Free Quote</span>
-                    <span class="text-muted-foreground">Available</span>
-                  </div>
-                  <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+    <!-- FAQ Section -->
+    <CityFAQ city={city} />
 
     <!-- Contact Section -->
     <section class="py-16 px-4 bg-primary text-primary-foreground">
@@ -170,7 +262,10 @@ const services = getAllServices();
             <p class="opacity-90">{city.contact.address}</p>
           </div>
         </div>
-        <button class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors mt-8">
+        <button 
+          class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors mt-8"
+          onclick="openBooking('freeQuote')"
+        >
           Get Free Quote
         </button>
       </div>

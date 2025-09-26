@@ -1,0 +1,43 @@
+---
+// Service Hero Section Component
+// Displays service title, description, and primary CTAs
+
+import { getContactInfo } from '../config/business';
+
+export interface Props {
+  service: {
+    title: string;
+    shortDescription: string;
+    icon: string;
+  };
+}
+
+const { service } = Astro.props;
+const contactInfo = getContactInfo();
+---
+
+<section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+  <div class="container mx-auto text-center">
+    <div class="text-6xl mb-6">{service.icon}</div>
+    <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+      {service.title}
+    </h1>
+    <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+      {service.shortDescription}
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button 
+        class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+        onclick="openBooking('freeQuote')"
+      >
+        Get Free Quote
+      </button>
+      <a 
+        href={`tel:${contactInfo.main.phone}`} 
+        class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors inline-block"
+      >
+        Call {contactInfo.main.phone}
+      </a>
+    </div>
+  </div>
+</section>

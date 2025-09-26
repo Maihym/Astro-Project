@@ -7,6 +7,20 @@ import Layout from '../../layouts/Layout.astro';
 import { getServiceBySlug, getAllServices, getAllCities } from '../../lib/data';
 import type { Service } from '../../lib/data';
 
+// Import service page components
+import ServiceHero from '../../components/ServiceHero.astro';
+import ServiceTrustSignals from '../../components/ServiceTrustSignals.astro';
+import ServiceBenefits from '../../components/ServiceBenefits.astro';
+import ServiceSpecifications from '../../components/ServiceSpecifications.astro';
+import ServiceFeatures from '../../components/ServiceFeatures.astro';
+import ServiceProcess from '../../components/ServiceProcess.astro';
+import ServiceExpertise from '../../components/ServiceExpertise.astro';
+import ServiceTechnical from '../../components/ServiceTechnical.astro';
+import ServiceTestimonials from '../../components/ServiceTestimonials.astro';
+import ServiceLocalArea from '../../components/ServiceLocalArea.astro';
+import ServiceFAQ from '../../components/ServiceFAQ.astro';
+import ServiceFinalCTA from '../../components/ServiceFinalCTA.astro';
+
 export async function getStaticPaths() {
   const services = getAllServices();
   return services.map((service) => ({
@@ -160,360 +174,41 @@ const faqSchema = generateFAQSchema(service);
   <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)}></script>
   <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <main class="min-h-screen bg-background">
-    <!-- Hero Section - Enhanced with Local Context -->
-    <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
-      <div class="container mx-auto text-center">
-        <div class="text-6xl mb-6">{service.icon}</div>
-        <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
-          {service.title} Services
-        </h1>
-        <p class="text-xl text-muted-foreground mb-6 max-w-4xl mx-auto">
-          {service.description}
-        </p>
-        <p class="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-          We serve La Mirada, Whittier, Cerritos, and surrounding areas with professional electrical solutions. Our licensed C-10 electrical contractor team delivers safe, code-compliant work with 24/7 emergency service availability.
-        </p>
-        <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button 
-            class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
-            onclick="openBooking('freeQuote')"
-          >
-            Get Free Quote
-          </button>
-          <a href="#cities-we-serve" class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors inline-block">
-            View Cities We Serve
-          </a>
-        </div>
-      </div>
-    </section>
+    <!-- Hero Section -->
+    <ServiceHero service={service} />
 
-    <!-- Features Section -->
-    <section class="py-16 px-4">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">What We Offer</h2>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {service.features.map((feature) => (
-            <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-shadow">
-              <h3 class="text-xl font-semibold mb-2">{feature}</h3>
-              <p class="text-muted-foreground">Professional installation and service to meet your electrical needs.</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <!-- Trust Signals Section -->
+    <ServiceTrustSignals />
 
     <!-- Benefits Section -->
-    <section class="py-16 px-4 bg-muted/30">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Why Choose Our {service.title} Services?</h2>
-        <div class="grid md:grid-cols-2 gap-8">
-          {service.benefits.map((benefit) => (
-            <div class="flex items-start gap-4">
-              <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <span class="text-primary-foreground text-sm">✓</span>
-              </div>
-              <div>
-                <h3 class="text-lg font-semibold mb-2">{benefit}</h3>
-                <p class="text-muted-foreground">Experience the difference with our professional approach to electrical services.</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <ServiceBenefits service={service} />
 
-    <!-- Local Considerations Section -->
-    <section class="py-16 px-4">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Serving Your Local Area</h2>
-        <div class="grid lg:grid-cols-3 gap-8">
-          <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <h3 class="text-xl font-semibold mb-4 text-primary">La Mirada</h3>
-            <p class="text-muted-foreground mb-4">
-              From homes built in the 1960s to modern developments, La Mirada's diverse housing requires specialized electrical expertise. We understand the unique challenges facing local property owners.
-            </p>
-            <ul class="space-y-2 text-sm text-muted-foreground">
-              <li>• Local permit handling</li>
-              <li>• California electrical code compliance</li>
-              <li>• Area-specific electrical solutions</li>
-              <li>• Building department coordination</li>
-            </ul>
-          </div>
-          <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <h3 class="text-xl font-semibold mb-4 text-primary">Whittier</h3>
-            <p class="text-muted-foreground mb-4">
-              Whittier's mix of historic homes and modern developments requires careful electrical planning. Our team is experienced with both historic preservation and contemporary electrical needs.
-            </p>
-            <ul class="space-y-2 text-sm text-muted-foreground">
-              <li>• Historic home considerations</li>
-              <li>• Local permit requirements</li>
-              <li>• Code compliance expertise</li>
-              <li>• Neighborhood-specific solutions</li>
-            </ul>
-          </div>
-          <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <h3 class="text-xl font-semibold mb-4 text-primary">Cerritos</h3>
-            <p class="text-muted-foreground mb-4">
-              Cerritos' modern infrastructure and focus on technology requires advanced electrical solutions. We're experienced with smart home installations and modern electrical systems.
-            </p>
-            <ul class="space-y-2 text-sm text-muted-foreground">
-              <li>• Modern electrical systems</li>
-              <li>• Smart home integration</li>
-              <li>• Energy-efficient solutions</li>
-              <li>• Commercial electrical experience</li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Service Specifications Section -->
+    <ServiceSpecifications service={service} />
 
-    <!-- Pricing & Estimates Section -->
-    <section class="py-16 px-4 bg-muted/30">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Pricing & Estimates</h2>
-        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          <div class="bg-card p-8 rounded-lg border shadow-sm">
-            <h3 class="text-2xl font-semibold mb-4 text-primary">Free Estimates</h3>
-            <p class="text-muted-foreground mb-6">
-              We provide detailed, free estimates for all electrical services. Our licensed electricians will assess your needs and provide transparent pricing with no hidden fees.
-            </p>
-            <ul class="space-y-3 text-muted-foreground">
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                No obligation estimates
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Detailed project breakdown
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Competitive market pricing
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Clear timeline expectations
-              </li>
-            </ul>
-          </div>
-          <div class="bg-card p-8 rounded-lg border shadow-sm">
-            <h3 class="text-2xl font-semibold mb-4 text-primary">Payment Options</h3>
-            <p class="text-muted-foreground mb-6">
-              We offer flexible payment options to make electrical services accessible for all our customers.
-            </p>
-            <ul class="space-y-3 text-muted-foreground">
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Cash, check, and credit cards accepted
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Financing options available
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Insurance billing assistance
-              </li>
-              <li class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                Warranty on all work
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Customer Testimonials Section -->
-    <section class="py-16 px-4">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">What Our Customers Say</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-          <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <div class="flex items-center gap-1 mb-4">
-              {[1,2,3,4,5].map(() => (
-                <span class="text-yellow-400 text-xl">★</span>
-              ))}
-            </div>
-            <p class="text-muted-foreground mb-4">
-              "First Electric came out for our electrical work in La Mirada and fixed our issue within an hour. Professional, knowledgeable, and reasonably priced. Highly recommend!"
-            </p>
-            <div class="text-sm font-semibold">Sarah Johnson</div>
-            <div class="text-sm text-muted-foreground">La Mirada, CA</div>
-          </div>
-          <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <div class="flex items-center gap-1 mb-4">
-              {[1,2,3,4,5].map(() => (
-                <span class="text-yellow-400 text-xl">★</span>
-              ))}
-            </div>
-            <p class="text-muted-foreground mb-4">
-              "Excellent service for our electrical project in Whittier. The team was professional, clean, and completed the work on time. Great communication throughout the process."
-            </p>
-            <div class="text-sm font-semibold">Mike Rodriguez</div>
-            <div class="text-sm text-muted-foreground">Whittier, CA</div>
-          </div>
-          <div class="bg-card p-6 rounded-lg border shadow-sm">
-            <div class="flex items-center gap-1 mb-4">
-              {[1,2,3,4,5].map(() => (
-                <span class="text-yellow-400 text-xl">★</span>
-              ))}
-            </div>
-            <p class="text-muted-foreground mb-4">
-              "We needed electrical work in our Cerritos home. First Electric handled everything from permits to final inspection. The work was done professionally and on schedule."
-            </p>
-            <div class="text-sm font-semibold">Jennifer Chen</div>
-            <div class="text-sm text-muted-foreground">Cerritos, CA</div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Service Features Section -->
+    <ServiceFeatures service={service} />
 
     <!-- Process Section -->
-    <section class="py-16 px-4">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Our {service.title} Process</h2>
-        <div class="grid md:grid-cols-4 gap-8">
-          <div class="text-center">
-            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <span class="text-primary-foreground text-2xl font-bold">1</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Free Consultation</h3>
-            <p class="text-muted-foreground">We assess your needs and provide a detailed quote.</p>
-          </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <span class="text-primary-foreground text-2xl font-bold">2</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Planning & Design</h3>
-            <p class="text-muted-foreground">We create a custom plan tailored to your requirements.</p>
-          </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <span class="text-primary-foreground text-2xl font-bold">3</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Professional Installation</h3>
-            <p class="text-muted-foreground">Our licensed electricians complete the work safely and efficiently.</p>
-          </div>
-          <div class="text-center">
-            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
-              <span class="text-primary-foreground text-2xl font-bold">4</span>
-            </div>
-            <h3 class="text-xl font-semibold mb-2">Quality Assurance</h3>
-            <p class="text-muted-foreground">We test everything and provide ongoing support.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ServiceProcess service={service} />
+
+    <!-- Local Expertise Section -->
+    <ServiceExpertise service={service} />
+
+    <!-- Technical Details Section -->
+    <ServiceTechnical service={service} />
+
+    <!-- Testimonials Section -->
+    <ServiceTestimonials service={service} />
+
+    <!-- Local Area Section -->
+    <ServiceLocalArea service={service} />
 
     <!-- FAQ Section -->
-    <section class="py-16 px-4 bg-muted/30">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-        <div class="max-w-4xl mx-auto space-y-6">
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">How quickly can you respond to electrical service requests?</h3>
-            <p class="text-muted-foreground">We typically respond to electrical service requests within 60 minutes, 24/7. Our team is strategically located to serve the La Mirada, Whittier, and Cerritos areas quickly, and we stock common parts to resolve most issues on the first visit.</p>
-          </div>
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">Do you offer free estimates?</h3>
-            <p class="text-muted-foreground">Yes, we provide free estimates for all electrical services. Our licensed electricians will assess your electrical needs and provide a detailed estimate with no obligation.</p>
-          </div>
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">Are you licensed and insured for electrical work in California?</h3>
-            <p class="text-muted-foreground">Yes, First Electric LLC is a licensed C-10 electrical contractor (License #1120441) and fully insured. We are bonded and carry comprehensive liability insurance to protect your property and our work.</p>
-          </div>
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">What areas do you serve?</h3>
-            <p class="text-muted-foreground">We serve La Mirada, Whittier, Cerritos, Buena Park, La Habra, Santa Fe Springs, and surrounding areas in Los Angeles and Orange Counties. Contact us to confirm service availability in your specific location.</p>
-          </div>
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">Do you work on both residential and commercial projects?</h3>
-            <p class="text-muted-foreground">Yes, we provide comprehensive electrical services for both residential and commercial properties. Our licensed electricians are experienced in everything from home electrical repairs to large commercial installations and upgrades.</p>
-          </div>
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">How long do electrical projects typically take?</h3>
-            <p class="text-muted-foreground">The duration depends on the scope of work and property type. Simple installations may take a few hours, while complex projects can take several days. We provide detailed timelines during your free consultation and account for local permit requirements.</p>
-          </div>
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">Do you handle permits and inspections?</h3>
-            <p class="text-muted-foreground">Yes, we handle all permit applications and inspections for electrical work. Our licensed electricians are familiar with local electrical codes and work closely with building departments to ensure compliance.</p>
-          </div>
-          <div class="bg-card p-6 rounded-lg border">
-            <h3 class="text-xl font-semibold mb-2">What should I do if I have an electrical emergency?</h3>
-            <p class="text-muted-foreground">If you have an electrical emergency, call our emergency line immediately at (657) 239-6331. If there's an electrical fire, call 911 first, then call us. Never attempt to repair electrical emergencies yourself as this can be dangerous. We provide 24/7 emergency service throughout our service area.</p>
-          </div>
-        </div>
-      </div>
-    </section>
+    <ServiceFAQ service={service} />
 
-    <!-- Cities We Serve Section -->
-    <section id="cities-we-serve" class="py-16 px-4">
-      <div class="container mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Cities We Serve</h2>
-        <p class="text-xl text-muted-foreground text-center mb-8 max-w-3xl mx-auto">
-          We provide {service.title.toLowerCase()} services in these California cities and surrounding areas.
-        </p>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {cities.map((city) => (
-            <a href={`/services/${service.slug}/${city.slug}`} class="group">
-              <div class="bg-card p-6 rounded-lg border shadow-sm hover:shadow-md transition-all duration-300 group-hover:border-primary/50">
-                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
-                  {service.title} in {city.name}
-                </h3>
-                <p class="text-muted-foreground mb-4">{city.state}</p>
-                <div class="space-y-2 mb-4">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-primary rounded-full"></span>
-                    <span class="text-sm text-foreground">Population: {city.population}</span>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <span class="w-2 h-2 bg-primary rounded-full"></span>
-                    <span class="text-sm text-foreground">{city.serviceAreas.length} service areas</span>
-                  </div>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span class="text-sm text-muted-foreground">Get {service.title.toLowerCase()} in {city.name}</span>
-                  <span class="text-primary group-hover:translate-x-1 transition-transform">→</span>
-                </div>
-              </div>
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
+    <!-- Final CTA Section -->
+    <ServiceFinalCTA service={service} />
 
-    <!-- Free Quote Section -->
-    <section class="py-16 px-4">
-      <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-8">Get Your Free Quote</h2>
-        <div class="bg-card p-8 rounded-lg border shadow-sm max-w-md mx-auto">
-          <h3 class="text-2xl font-semibold mb-4">No Obligation</h3>
-          <p class="text-muted-foreground mb-6">
-            Contact us for a detailed, free estimate tailored to your specific {service.title.toLowerCase()} needs.
-          </p>
-          <button 
-            class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors w-full"
-            onclick="openBooking('freeQuote')"
-          >
-            Get Your Free Quote
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="py-16 px-4 bg-primary text-primary-foreground">
-      <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-        <p class="text-xl mb-8 opacity-90">Contact us today for professional {service.title.toLowerCase()} services.</p>
-        <button 
-          class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors"
-          onclick="openBooking('freeQuote')"
-        >
-          Get Free Quote
-        </button>
-      </div>
-    </section>
   </main>
 </Layout>

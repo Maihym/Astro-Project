@@ -1,0 +1,197 @@
+---
+// Enhanced Service Information Section Component
+// Displays detailed service information with specifications, process, and expertise
+
+export interface Props {
+  service: {
+    title: string;
+    description: string;
+    features: string[];
+    specifications?: {
+      duration: string;
+      complexity: 'Basic' | 'Intermediate' | 'Advanced';
+      permits: boolean;
+      warranty: string;
+      materials?: string[];
+    };
+    process?: {
+      step1: string;
+      step2: string;
+      step3: string;
+      step4: string;
+    };
+    localExpertise?: {
+      commonIssues: string[];
+      codeRequirements: string;
+      permitProcess?: string;
+    };
+    technicalDetails?: {
+      voltage?: string;
+      amperage?: string;
+      codeCompliance?: string[];
+    };
+    cta?: {
+      estimateText: string;
+      contactText: string;
+    };
+  };
+}
+
+const { service } = Astro.props;
+---
+
+<section class="py-16 px-4 bg-muted/30">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">About Our {service.title} Service</h2>
+    <div class="max-w-4xl mx-auto">
+      <p class="text-lg text-muted-foreground mb-8 text-center">
+        {service.description}
+      </p>
+      
+      <!-- Service Specifications -->
+      {service.specifications && (
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <h3 class="text-lg font-semibold mb-2">Duration</h3>
+            <p class="text-muted-foreground">{service.specifications.duration}</p>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <h3 class="text-lg font-semibold mb-2">Complexity</h3>
+            <p class="text-muted-foreground">{service.specifications.complexity}</p>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <h3 class="text-lg font-semibold mb-2">Permits</h3>
+            <p class="text-muted-foreground">{service.specifications.permits ? 'Required' : 'Not Required'}</p>
+          </div>
+          <div class="bg-card p-6 rounded-lg border text-center">
+            <h3 class="text-lg font-semibold mb-2">Warranty</h3>
+            <p class="text-muted-foreground">{service.specifications.warranty}</p>
+          </div>
+        </div>
+      )}
+      
+      <!-- Service Process -->
+      {service.process && (
+        <div class="mb-12">
+          <h3 class="text-2xl font-bold text-center mb-8">Our Process</h3>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="text-center">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-primary-foreground font-bold">1</span>
+              </div>
+              <p class="text-sm text-muted-foreground">{service.process.step1}</p>
+            </div>
+            <div class="text-center">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-primary-foreground font-bold">2</span>
+              </div>
+              <p class="text-sm text-muted-foreground">{service.process.step2}</p>
+            </div>
+            <div class="text-center">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-primary-foreground font-bold">3</span>
+              </div>
+              <p class="text-sm text-muted-foreground">{service.process.step3}</p>
+            </div>
+            <div class="text-center">
+              <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                <span class="text-primary-foreground font-bold">4</span>
+              </div>
+              <p class="text-sm text-muted-foreground">{service.process.step4}</p>
+            </div>
+          </div>
+        </div>
+      )}
+      
+      <!-- Local Expertise -->
+      {service.localExpertise && (
+        <div class="mb-12 bg-card p-8 rounded-lg border">
+          <h3 class="text-2xl font-bold text-center mb-6">Local Expertise</h3>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Common Issues We Address</h4>
+              <ul class="space-y-2">
+                {service.localExpertise.commonIssues.map((issue) => (
+                  <li class="flex items-start gap-2">
+                    <div class="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+                    <span class="text-muted-foreground">{issue}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Code Compliance</h4>
+              <p class="text-muted-foreground">{service.localExpertise.codeRequirements}</p>
+              {service.localExpertise.permitProcess && (
+                <div class="mt-4">
+                  <h5 class="font-semibold mb-2">Permit Process</h5>
+                  <p class="text-sm text-muted-foreground">{service.localExpertise.permitProcess}</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+      
+      <!-- Technical Details -->
+      {service.technicalDetails && (
+        <div class="mb-12 bg-card p-8 rounded-lg border">
+          <h3 class="text-2xl font-bold text-center mb-6">Technical Specifications</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            {service.technicalDetails.voltage && (
+              <div class="text-center">
+                <h4 class="text-lg font-semibold mb-2">Voltage</h4>
+                <p class="text-muted-foreground">{service.technicalDetails.voltage}</p>
+              </div>
+            )}
+            {service.technicalDetails.amperage && (
+              <div class="text-center">
+                <h4 class="text-lg font-semibold mb-2">Amperage</h4>
+                <p class="text-muted-foreground">{service.technicalDetails.amperage}</p>
+              </div>
+            )}
+            {service.technicalDetails.codeCompliance && (
+              <div class="text-center">
+                <h4 class="text-lg font-semibold mb-2">Code Compliance</h4>
+                <div class="space-y-1">
+                  {service.technicalDetails.codeCompliance.map((code) => (
+                    <p class="text-sm text-muted-foreground">{code}</p>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+      
+      <!-- Service Features -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+        {service.features.map((feature) => (
+          <div class="bg-card p-6 rounded-lg border shadow-sm">
+            <h3 class="text-lg font-semibold mb-2">{feature}</h3>
+            <p class="text-muted-foreground text-sm">
+              {service.specifications?.warranty || 'Professional installation and service to meet your electrical needs.'}
+            </p>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Call-to-Action for Estimates -->
+      {service.cta && (
+        <div class="text-center bg-primary/10 p-8 rounded-lg border border-primary/20">
+          <h3 class="text-2xl font-bold mb-4">Ready to Get Started?</h3>
+          <p class="text-lg text-muted-foreground mb-6">{service.cta.estimateText}</p>
+          <p class="text-sm text-muted-foreground mb-6">{service.cta.contactText}</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="tel:(657) 239-6331" class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+              Call (657) 239-6331
+            </a>
+            <a href="/contact" class="border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
+              Request Estimate
+            </a>
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

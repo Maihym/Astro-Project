@@ -1,0 +1,228 @@
+---
+// Main Electrical FAQ Page
+// Comprehensive FAQ content for SEO and user value
+
+import Layout from '../layouts/Layout.astro';
+import { getCompanyInfo } from '../config/business';
+
+const companyInfo = getCompanyInfo();
+
+// Comprehensive FAQ data
+const faqs = [
+  // General Questions
+  {
+    category: "General",
+    questions: [
+      {
+        question: "How quickly can you respond to electrical service requests?",
+        answer: "We typically respond to electrical service requests within 60 minutes, 24/7. Our team is strategically located to serve the La Mirada, Whittier, and Cerritos areas quickly, and we stock common parts to resolve most issues on the first visit."
+      },
+      {
+        question: "Do you offer free estimates?",
+        answer: "Yes, we provide free estimates for all electrical services. Our licensed electricians will assess your electrical needs and provide a detailed estimate with no obligation."
+      },
+      {
+        question: "Are you licensed and insured for electrical work in California?",
+        answer: "Yes, First Electric LLC is a licensed C-10 electrical contractor (License #1120441) and fully insured. We are bonded and carry comprehensive liability insurance to protect your property and our work."
+      },
+      {
+        question: "What areas do you serve?",
+        answer: "We serve La Mirada, Whittier, Cerritos, Buena Park, La Habra, Santa Fe Springs, and surrounding areas in Los Angeles and Orange Counties. Contact us to confirm service availability in your specific location."
+      },
+      {
+        question: "Do you work on both residential and commercial projects?",
+        answer: "Yes, we provide comprehensive electrical services for both residential and commercial properties. Our licensed electricians are experienced in everything from home electrical repairs to large commercial installations and upgrades."
+      },
+      {
+        question: "How long do electrical projects typically take?",
+        answer: "The duration depends on the scope of work and property type. Simple installations may take a few hours, while complex projects can take several days. We provide detailed timelines during your free consultation and account for local permit requirements."
+      },
+      {
+        question: "Do you handle permits and inspections?",
+        answer: "Yes, we handle all permit applications and inspections for electrical work. Our licensed electricians are familiar with local electrical codes and work closely with building departments to ensure compliance."
+      },
+      {
+        question: "What should I do if I have an electrical emergency?",
+        answer: "If you have an electrical emergency, call our emergency line immediately at (657) 239-6331. If there's an electrical fire, call 911 first, then call us. Never attempt to repair electrical emergencies yourself as this can be dangerous. We provide 24/7 emergency service throughout our service area."
+      }
+    ]
+  },
+  // Residential Wiring Questions
+  {
+    category: "Residential Wiring",
+    questions: [
+      {
+        question: "How long does residential wiring take?",
+        answer: "Residential wiring projects typically take 1-3 days for full rewiring, depending on the size of your home and complexity of the electrical system. We provide detailed timelines during your free consultation."
+      },
+      {
+        question: "Do I need permits for residential wiring?",
+        answer: "Yes, most residential wiring work requires permits. We handle all permit applications and inspections to ensure your electrical work meets local building codes and safety standards."
+      },
+      {
+        question: "What's included in your residential wiring warranty?",
+        answer: "We provide a 2-year warranty on all residential wiring work, covering both materials and labor. This gives you peace of mind that your electrical system will perform reliably."
+      },
+      {
+        question: "Can you work with older homes?",
+        answer: "Yes, we specialize in working with older homes, including those with knob and tube wiring, aluminum wiring, or outdated electrical panels. We're experienced with the unique challenges of older electrical systems."
+      },
+      {
+        question: "What's the difference between rewiring and upgrading electrical systems?",
+        answer: "Rewiring involves replacing all electrical wiring in your home, while upgrading focuses on improving specific components like electrical panels, outlets, or circuits. We can assess your needs and recommend the best approach for your home."
+      }
+    ]
+  },
+  // Commercial Electrical Questions
+  {
+    category: "Commercial Electrical",
+    questions: [
+      {
+        question: "What commercial electrical services do you provide?",
+        answer: "We provide comprehensive commercial electrical services including office building wiring, retail space electrical systems, industrial electrical systems, lighting installations, fire alarm systems, and data center electrical work."
+      },
+      {
+        question: "Do you work on large commercial projects?",
+        answer: "Yes, we handle commercial projects of all sizes, from small office spaces to large industrial facilities. Our team has experience with complex commercial electrical systems and can manage projects from planning to completion."
+      },
+      {
+        question: "What are your commercial electrical rates?",
+        answer: "Commercial electrical rates vary based on project scope, timeline, and complexity. We provide detailed estimates for all commercial projects. Contact us for a free consultation and personalized pricing."
+      },
+      {
+        question: "Do you provide 24/7 commercial electrical support?",
+        answer: "Yes, we provide 24/7 emergency electrical support for commercial clients. Our emergency team can respond quickly to minimize downtime for your business operations."
+      }
+    ]
+  },
+  // Emergency Repairs Questions
+  {
+    category: "Emergency Repairs",
+    questions: [
+      {
+        question: "What constitutes an electrical emergency?",
+        answer: "Electrical emergencies include power outages, electrical fires, exposed wiring, burning smells, sparking outlets, or any situation that poses an immediate safety risk. If you're unsure, it's better to call us for assessment."
+      },
+      {
+        question: "How quickly can you respond to electrical emergencies?",
+        answer: "We provide 24/7 emergency service with an average response time of 60 minutes. Our emergency team is always on call and carries fully stocked service vehicles to resolve most issues on the first visit."
+      },
+      {
+        question: "Do emergency repairs cost more?",
+        answer: "Emergency service may include additional fees for after-hours response, but we provide transparent pricing and will explain all costs before beginning work. We prioritize your safety and getting your power restored quickly."
+      },
+      {
+        question: "What should I do if I smell burning from electrical outlets?",
+        answer: "If you smell burning from electrical outlets, turn off the power to that circuit immediately and call us right away. This could indicate a serious electrical problem that needs immediate attention."
+      }
+    ]
+  },
+  // EV Charging Questions
+  {
+    category: "EV Charging Installation",
+    questions: [
+      {
+        question: "What types of EV charging stations do you install?",
+        answer: "We install Level 1 (120V), Level 2 (240V), and DC fast charging stations for both residential and commercial applications. We can help you choose the right charging solution for your needs."
+      },
+      {
+        question: "How long does EV charging station installation take?",
+        answer: "EV charging station installation typically takes 2-4 hours for Level 2 stations, depending on your electrical system and installation requirements. We provide detailed timelines during your free consultation."
+      },
+      {
+        question: "Do I need permits for EV charging station installation?",
+        answer: "Yes, most EV charging station installations require permits. We handle all permit applications and inspections to ensure your installation meets local electrical codes and safety standards."
+      }
+    ]
+  }
+];
+
+// Generate FAQ schema for SEO
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.flatMap(category => 
+    category.questions.map(q => ({
+      "@type": "Question",
+      "name": q.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": q.answer
+      }
+    }))
+  )
+};
+---
+
+<Layout 
+  title="Electrical FAQ | Frequently Asked Questions | First Electric LLC"
+  description="Get answers to common electrical service questions. Learn about our residential wiring, commercial electrical, and emergency repair services. Licensed electricians serving your area."
+>
+  <!-- FAQ Schema Markup -->
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+  
+  <main class="min-h-screen bg-background">
+    <!-- Hero Section -->
+    <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+      <div class="container mx-auto text-center">
+        <h1 class="text-4xl md:text-6xl font-bold text-foreground mb-6">
+          Electrical FAQ
+        </h1>
+        <p class="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+          Get answers to common electrical service questions. Our licensed electricians are here to help with all your electrical needs.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ Content -->
+    <section class="py-16 px-4">
+      <div class="container mx-auto max-w-4xl">
+        {faqs.map((category) => (
+          <div class="mb-16">
+            <h2 class="text-3xl font-bold mb-8 text-center">{category.category} Questions</h2>
+            <div class="space-y-4">
+              {category.questions.map((faq) => (
+                <div class="bg-card border rounded-lg">
+                  <details class="group">
+                    <summary class="flex items-center justify-between w-full px-6 py-4 text-left font-semibold text-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                      <span>{faq.question}</span>
+                      <svg 
+                        class="w-5 h-5 text-muted-foreground transition-transform duration-200 group-open:rotate-180" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                      </svg>
+                    </summary>
+                    <div class="px-6 pb-4 text-muted-foreground border-t">
+                      <p class="pt-4">{faq.answer}</p>
+                    </div>
+                  </details>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 px-4 bg-muted/30">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-6">Still Have Questions?</h2>
+        <p class="text-lg text-muted-foreground mb-8">
+          Our licensed electricians are here to help with all your electrical questions and needs.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="tel:(657) 239-6331" class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+            Call (657) 239-6331
+          </a>
+          <a href="/contact" class="border border-primary text-primary px-8 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors">
+            Contact Us
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

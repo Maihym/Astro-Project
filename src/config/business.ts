@@ -165,7 +165,7 @@ export const businessConfig: BusinessConfig = {
     inspection: "https://calendar.app.google/kuoM2qEwm2osbUBi6"
   },
   analytics: {
-    // TODO: Add your Google Analytics 4 Measurement ID when ready for production
+    // Google Analytics 4 Measurement ID - Production Ready
     googleAnalyticsId: "G-QD0KG6NZHP",
     // googleTagManagerId: "GTM-XXXXXXX",
     // googleSearchConsoleId: "your-search-console-id",

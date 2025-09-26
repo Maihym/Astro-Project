@@ -1,0 +1,143 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCompanyInfo } from '../config/business';
+
+const companyInfo = getCompanyInfo();
+---
+
+<Layout 
+	title={`Hero Booking Form Demo | ${companyInfo.name}`}
+	description="Demo of the new multi-step Hero Booking Form for First Electric LLC"
+>
+	<main class="min-h-screen bg-background">
+		<!-- Hero Section with Booking Form -->
+		<section class="py-12 px-4 relative bg-gradient-to-br from-primary/5 to-secondary/5">
+			<div class="container mx-auto">
+				<div class="text-center mb-8">
+					<h1 class="text-3xl md:text-4xl font-bold text-primary mb-4">
+						New Hero Booking Form Demo
+					</h1>
+					<p class="text-lg text-muted-foreground max-w-2xl mx-auto">
+						Experience our new multi-step booking form with mobile-optimized design, 
+						auto-save functionality, and touch gesture support.
+					</p>
+				</div>
+				
+				<!-- Booking Form Container -->
+				<div id="booking-form-demo"></div>
+			</div>
+		</section>
+
+		<!-- Features Section -->
+		<section class="py-16 px-4 bg-muted/30">
+			<div class="container mx-auto">
+				<h2 class="text-3xl font-bold text-center mb-12">New Booking Form Features</h2>
+				<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">📱</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Mobile-First Design</h3>
+						<p class="text-muted-foreground">Touch-optimized interface with 44px minimum touch targets and responsive layouts.</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">💾</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Auto-Save</h3>
+						<p class="text-muted-foreground">Form data is automatically saved to prevent data loss during the booking process.</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">👆</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Touch Gestures</h3>
+						<p class="text-muted-foreground">Swipe left/right to navigate between steps on mobile devices.</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">⚡</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Service Selection</h3>
+						<p class="text-muted-foreground">Choose from Free Quote, Service Call ($189), or Inspection ($350) with clear pricing.</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">📍</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Smart Location</h3>
+						<p class="text-muted-foreground">Google Places autocomplete for address input with local service area information.</p>
+					</div>
+					<div class="text-center p-6">
+						<div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center mx-auto mb-4">
+							<span class="text-primary-foreground text-2xl">✅</span>
+						</div>
+						<h3 class="text-xl font-semibold mb-2">Form Validation</h3>
+						<p class="text-muted-foreground">Real-time validation with clear error messages and progress indicators.</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Integration Example -->
+		<section class="py-16 px-4">
+			<div class="container mx-auto">
+				<h2 class="text-3xl font-bold text-center mb-12">Integration Examples</h2>
+				<div class="grid md:grid-cols-2 gap-8">
+					<div class="bg-card p-6 rounded-lg border">
+						<h3 class="text-xl font-semibold mb-4">Homepage Integration</h3>
+						<p class="text-muted-foreground mb-4">
+							Replace the existing "Get Free Quote" button with the new HeroBookingForm component.
+						</p>
+						<pre class="bg-muted p-4 rounded text-sm overflow-x-auto"><code>{`<HeroBookingForm
+  defaultServiceType="freeQuote"
+  onComplete={(data) => {
+    // Handle booking completion
+    console.log('Booking completed:', data);
+  }}
+  onCancel={() => {
+    // Handle cancellation
+  }}
+/>`}</code></pre>
+					</div>
+					<div class="bg-card p-6 rounded-lg border">
+						<h3 class="text-xl font-semibold mb-4">Service Page Integration</h3>
+						<p class="text-muted-foreground mb-4">
+							Use specific service types based on the page context.
+						</p>
+						<pre class="bg-muted p-4 rounded text-sm overflow-x-auto"><code>{`<HeroBookingForm
+  defaultServiceType="serviceCall"
+  onComplete={(data) => {
+    // Redirect to calendar
+    window.open(calendarUrl, '_blank');
+  }}
+/>`}</code></pre>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
+
+<script>
+	import HeroBookingForm from '../components/booking/HeroBookingForm';
+	import React from 'react';
+	import ReactDOM from 'react-dom/client';
+
+	// Mount the React component
+	const container = document.getElementById('booking-form-demo');
+	if (container) {
+		const root = ReactDOM.createRoot(container);
+		root.render(React.createElement(HeroBookingForm, {
+			defaultServiceType: 'freeQuote',
+			onComplete: (data) => {
+				console.log('Booking completed:', data);
+				alert('Booking form completed! Check console for data.');
+			},
+			onCancel: () => {
+				console.log('Booking cancelled');
+				alert('Booking cancelled');
+			}
+		}));
+	}
+</script>

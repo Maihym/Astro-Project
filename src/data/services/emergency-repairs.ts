@@ -6,20 +6,20 @@ export const emergencyRepairs = {
   id: 'emergency-repairs',
   title: 'Emergency Electrical Repairs',
   slug: 'emergency-repairs',
-  description: '24/7 emergency electrical repair services for urgent electrical issues and power outages. We serve La Mirada, Whittier, Cerritos, and surrounding areas with immediate response.',
+  description: '24/7 emergency electrical repair services for urgent electrical issues and power outages. Immediate response with fully stocked service vehicles.',
   shortDescription: '24/7 emergency electrical repair services when you need them most.',
   icon: '🚨',
   category: 'emergency',
   features: [
     '24/7 emergency response',
-    'Power outage repairs and electrical fire prevention',
-    'Circuit breaker issues and electrical panel problems',
-    'Emergency lighting and power restoration services',
-    'Electrical safety checks and urgent electrical repairs',
-    'Emergency response team with fully stocked service vehicles',
-    'Insurance claim assistance for electrical emergencies',
-    'After-hours emergency electrical service availability',
-    'Licensed and insured electricians',
+    'Power outage repairs',
+    'Circuit breaker issues',
+    'Emergency lighting',
+    'Electrical safety checks',
+    'Fully stocked service vehicles',
+    'Insurance claim assistance',
+    'After-hours service',
+    'Licensed electricians',
     'Quick response times'
   ],
   benefits: [
@@ -35,30 +35,51 @@ export const emergencyRepairs = {
     '/images/services/emergency-repairs-whittier-1.jpg',
     '/images/services/emergency-repairs-cerritos-1.jpg'
   ],
+  // Enhanced content fields
+  specifications: {
+    duration: '60 minutes average response time',
+    complexity: 'Basic' as const,
+    permits: false,
+    warranty: '1-year warranty on emergency repairs',
+    materials: ['Emergency parts', 'Safety equipment', 'Testing tools']
+  },
+  process: {
+    step1: 'Emergency call received',
+    step2: 'Dispatch and en route',
+    step3: 'Assessment and repair',
+    step4: 'Safety verification'
+  },
+  localExpertise: {
+    commonIssues: [
+      'Power outages from storms',
+      'Circuit breaker failures',
+      'Electrical fires',
+      'Faulty wiring emergencies'
+    ],
+    codeRequirements: 'Emergency electrical safety protocols',
+    permitProcess: 'Emergency repairs may not require permits'
+  },
+  technicalDetails: {
+    voltage: '120V/240V emergency systems',
+    amperage: 'Up to 200A emergency panels',
+    codeCompliance: ['Emergency electrical codes', 'Safety protocols']
+  },
+  cta: {
+    estimateText: 'Free emergency assessments available 24/7',
+    contactText: 'Call now for immediate emergency electrical service'
+  },
   seo: {
-    title: `Emergency Electrical Repairs in La Mirada, Whittier & Cerritos | 24/7 Service | ${companyInfo.name}`,
-    description: '24/7 emergency electrical repair services in La Mirada, Whittier, Cerritos, and surrounding areas. Licensed C-10 electrical contractor with 60-minute response time. Free emergency assessments available.',
+    title: `Emergency Electrical Repairs | 24/7 Service | ${companyInfo.name}`,
+    description: '24/7 emergency electrical repair services for urgent electrical issues and power outages. Licensed C-10 electrical contractor with 60-minute response time.',
     keywords: [
-      'emergency electrical la mirada',
-      'emergency electrical whittier',
-      'emergency electrical cerritos',
-      '24/7 electrician la mirada',
-      'emergency electrician whittier',
-      'electrical emergency cerritos',
-      'electrician la mirada',
-      'electrician whittier',
-      'electrician cerritos',
-      'licensed electrician california',
-      'emergency electrician near me',
-      'electrical contractor la mirada',
-      'electrical services whittier',
-      'electrical repair cerritos',
-      'C-10 electrical contractor',
-      '24/7 emergency electrician',
-      'free electrical estimates',
-      'electrical panel upgrade la mirada',
-      'residential electrician whittier',
-      'commercial electrician cerritos'
+      'emergency electrical repairs',
+      '24/7 electrician',
+      'emergency electrician',
+      'electrical emergency',
+      'power outage repair',
+      'electrical contractor',
+      'licensed electrician',
+      'emergency electrical service'
     ]
   }
 };

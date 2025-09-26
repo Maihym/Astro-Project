@@ -1,0 +1,114 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCompanyInfo } from '../config/business';
+import InlineBookingForm from '../components/booking/InlineBookingForm';
+import PersonalizedBookingModal from '../components/booking/PersonalizedBookingModal';
+
+const companyInfo = getCompanyInfo();
+---
+
+<Layout 
+	title={`Booking Test | ${companyInfo.name}`}
+	description="Test page for React booking components"
+>
+	<main class="min-h-screen bg-background py-8">
+		<div class="container mx-auto px-4">
+			<div class="text-center mb-8">
+				<h1 class="text-3xl font-bold mb-4">React Booking Components Test</h1>
+				<p class="text-muted-foreground">
+					Testing the React booking components in Astro context.
+				</p>
+			</div>
+			
+			<!-- Test Hero Variant -->
+			<div class="mb-12">
+				<h2 class="text-2xl font-bold mb-6">Hero Variant</h2>
+				<div class="max-w-md mx-auto">
+					<InlineBookingForm 
+						client:load
+						variant="hero"
+						serviceType="freeQuote"
+						onStartBooking={(data) => {
+							console.log('Hero booking started:', data);
+							alert(`Hero booking started for ${data.firstName} ${data.lastName}`);
+						}}
+					/>
+				</div>
+			</div>
+			
+			<!-- Test Card Variant -->
+			<div class="mb-12">
+				<h2 class="text-2xl font-bold mb-6">Card Variant</h2>
+				<div class="max-w-md mx-auto">
+					<InlineBookingForm 
+						client:load
+						variant="card"
+						serviceType="serviceCall"
+						onStartBooking={(data) => {
+							console.log('Card booking started:', data);
+							alert(`Card booking started for ${data.firstName} ${data.lastName}`);
+						}}
+					/>
+				</div>
+			</div>
+			
+			<!-- Test Minimal Variant -->
+			<div class="mb-12">
+				<h2 class="text-2xl font-bold mb-6">Minimal Variant</h2>
+				<div class="max-w-md mx-auto">
+					<InlineBookingForm 
+						client:load
+						variant="minimal"
+						serviceType="inspection"
+						onStartBooking={(data) => {
+							console.log('Minimal booking started:', data);
+							alert(`Minimal booking started for ${data.firstName} ${data.lastName}`);
+						}}
+					/>
+				</div>
+			</div>
+			
+			<!-- Test Modal -->
+			<div class="mb-12">
+				<h2 class="text-2xl font-bold mb-6">Modal Test</h2>
+				<div class="text-center">
+					<button 
+						id="open-modal-btn"
+						class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+					>
+						Open Booking Modal
+					</button>
+				</div>
+				
+				<PersonalizedBookingModal 
+					client:load
+					isOpen={false}
+					onClose={() => {
+						console.log('Modal closed');
+						document.getElementById('modal-test')?.classList.add('hidden');
+					}}
+					initialData={{
+						firstName: 'Test',
+						lastName: 'User',
+						email: 'test@example.com'
+					}}
+					defaultServiceType="freeQuote"
+				/>
+			</div>
+		</div>
+	</main>
+</Layout>
+
+<script>
+	// Test modal functionality
+	document.addEventListener('DOMContentLoaded', () => {
+		const openBtn = document.getElementById('open-modal-btn');
+		if (openBtn) {
+			openBtn.addEventListener('click', () => {
+				console.log('Opening modal...');
+				// This would normally open the modal, but we need to test the React component
+				alert('Modal test - React component integration needed');
+			});
+		}
+	});
+</script>

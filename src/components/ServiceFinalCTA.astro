@@ -1,0 +1,38 @@
+---
+// Service Final CTA Section Component
+// Displays final call to action
+
+import { getContactInfo } from '../config/business';
+
+export interface Props {
+  service: {
+    title: string;
+  };
+}
+
+const { service } = Astro.props;
+const contactInfo = getContactInfo();
+---
+
+<section class="py-16 px-4 bg-primary text-primary-foreground">
+  <div class="container mx-auto text-center">
+    <h2 class="text-3xl font-bold mb-6">Ready to Get Started?</h2>
+    <p class="text-xl mb-8 max-w-2xl mx-auto">
+      Contact us today for a free estimate on your {service.title.toLowerCase()} project. No obligation, just professional service.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <button 
+        class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors"
+        onclick="openBooking('freeQuote')"
+      >
+        Get Free Quote
+      </button>
+      <a 
+        href={`tel:${contactInfo.main.phone}`} 
+        class="border border-primary-foreground text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary-foreground hover:text-primary transition-colors inline-block"
+      >
+        Call {contactInfo.main.phone}
+      </a>
+    </div>
+  </div>
+</section>

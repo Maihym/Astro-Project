@@ -1,7 +1,9 @@
 ---
 import Layout from '../../../layouts/Layout.astro';
 import { getServiceBySlug, getCityBySlug, getServiceCityPaths, generateServiceCitySEO } from '../../../lib/data';
+import { getCompanyInfo, getContactInfo } from '../../../config/business';
 import type { Service, City } from '../../../lib/data';
+import ServiceCityFAQ from '../../../components/ServiceCityFAQ.astro';
 
 export async function getStaticPaths() {
   return getServiceCityPaths();
@@ -14,6 +16,102 @@ interface Props {
 
 const { service, city } = Astro.props;
 const seo = generateServiceCitySEO(service, city);
+const companyInfo = getCompanyInfo();
+const contactInfo = getContactInfo();
+
+// Generate enhanced schema markup for service + city pages
+function generateServiceCitySchema(service: Service, city: City) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `${service.title} in ${city.name}`,
+    "description": service.description,
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": companyInfo.name,
+      "telephone": contactInfo.main.phone,
+      "email": contactInfo.main.email,
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": contactInfo.main.address.street,
+        "addressLocality": contactInfo.main.address.city,
+        "addressRegion": contactInfo.main.address.state,
+        "postalCode": contactInfo.main.address.zip,
+        "addressCountry": "US"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": city.name,
+          "containedInPlace": {
+            "@type": "State",
+            "name": city.state
+          }
+        }
+      ]
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": city.name,
+      "containedInPlace": {
+        "@type": "State",
+        "name": city.state
+      }
+    },
+    "serviceType": service.title,
+    "offers": {
+      "@type": "Offer",
+      "description": `Professional ${service.title.toLowerCase()} services in ${city.name}`,
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock"
+    }
+  };
+}
+
+// Generate FAQ schema for service + city pages
+function generateServiceCityFAQSchema(service: Service, city: City) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": `Do you provide ${service.title.toLowerCase()} services in ${city.name}?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `Yes, we provide comprehensive ${service.title.toLowerCase()} services in ${city.name}. Our licensed electricians are experienced with local electrical codes and requirements in ${city.name}.`
+        }
+      },
+      {
+        "@type": "Question",
+        "name": `How quickly can you respond to ${service.title.toLowerCase()} requests in ${city.name}?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `We typically respond to ${service.title.toLowerCase()} requests in ${city.name} within 60 minutes, 24/7. Our team is strategically located to serve ${city.name} and surrounding areas quickly.`
+        }
+      },
+      {
+        "@type": "Question",
+        "name": `Do you need permits for ${service.title.toLowerCase()} in ${city.name}?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `Most ${service.title.toLowerCase()} work in ${city.name} requires permits. We handle all permit applications and inspections with the ${city.name} building department to ensure compliance.`
+        }
+      },
+      {
+        "@type": "Question",
+        "name": `What areas of ${city.name} do you serve for ${service.title.toLowerCase()}?`,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": `We serve all areas of ${city.name} for ${service.title.toLowerCase()} services. Contact us to confirm service availability in your specific location within ${city.name}.`
+        }
+      }
+    ]
+  };
+}
+
+const serviceCitySchema = generateServiceCitySchema(service, city);
+const faqSchema = generateServiceCityFAQSchema(service, city);
 ---
 
 <Layout 
@@ -28,6 +126,9 @@ const seo = generateServiceCitySEO(service, city);
     { name: `${service.title} in ${city.name}`, url: `/services/${service.slug}/${city.slug}` }
   ]}
 >
+  <!-- Enhanced Schema Markup for Local SEO -->
+  <script type="application/ld+json" set:html={JSON.stringify(serviceCitySchema)}></script>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
   <main class="min-h-screen bg-background">
     <!-- Hero Section -->
     <section class="py-20 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
@@ -40,12 +141,18 @@ const seo = generateServiceCitySEO(service, city);
           Professional {service.title.toLowerCase()} services in {city.name}, {city.stateAbbr}. {service.shortDescription} Serving {city.name} and surrounding areas.
         </p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-          <button class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+          <button 
+            class="bg-primary text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            onclick="openBooking('freeQuote')"
+          >
             Get Free Quote in {city.name}
           </button>
-          <button class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors">
+          <a 
+            href={`tel:${city.contact.phone}`}
+            class="border border-input bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-accent transition-colors"
+          >
             Call {city.contact.phone}
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -126,51 +233,33 @@ const seo = generateServiceCitySEO(service, city);
       </div>
     </section>
 
+    <!-- FAQ Section -->
+    <ServiceCityFAQ service={service} city={city} />
+
     <!-- Free Quote Section -->
-    <section class="py-16 px-4 bg-muted/30">
+    <section class="py-16 px-4">
       <div class="container mx-auto text-center">
         <h2 class="text-3xl font-bold mb-8">Get Your Free Quote in {city.name}</h2>
         <div class="bg-card p-8 rounded-lg border shadow-sm max-w-md mx-auto">
-          <h3 class="text-2xl font-semibold mb-4">No Obligation</h3>
-          <p class="text-muted-foreground mb-4">
-            Contact us for a detailed, free estimate tailored to your specific {service.title.toLowerCase()} needs in {city.name}.
+          <h3 class="text-xl font-semibold mb-4">Ready to Get Started?</h3>
+          <p class="text-muted-foreground mb-6">
+            Contact us today for a free estimate on {service.title.toLowerCase()} services in {city.name}.
           </p>
-          <p class="text-sm text-muted-foreground mb-6">Serving {city.name} and surrounding areas</p>
-          <button 
-            class="bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors w-full"
-            onclick="openBooking('freeQuote')"
-          >
-            Get Your Free Quote
-          </button>
-        </div>
-      </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="py-16 px-4 bg-primary text-primary-foreground">
-      <div class="container mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-4">Contact Us for {service.title} in {city.name}</h2>
-        <p class="text-xl mb-8 opacity-90">Ready to get started with professional electrical services in {city.name}?</p>
-        <div class="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto mb-8">
-          <div>
-            <h3 class="text-xl font-semibold mb-2">Phone</h3>
-            <p class="opacity-90">{city.contact.phone}</p>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold mb-2">Email</h3>
-            <p class="opacity-90">{city.contact.email}</p>
-          </div>
-          <div>
-            <h3 class="text-xl font-semibold mb-2">Address</h3>
-            <p class="opacity-90">{city.contact.address}</p>
+          <div class="space-y-4">
+            <a 
+              href={`tel:${city.contact.phone}`}
+              class="block bg-primary text-primary-foreground px-6 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            >
+              Call {city.contact.phone}
+            </a>
+            <button 
+              class="w-full border border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary/10 transition-colors"
+              onclick="openBooking('freeQuote')"
+            >
+              Request Free Quote
+            </button>
           </div>
         </div>
-        <button 
-          class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors"
-          onclick="openBooking('freeQuote')"
-        >
-          Get Free Quote
-        </button>
       </div>
     </section>
   </main>

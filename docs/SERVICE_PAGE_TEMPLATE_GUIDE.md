@@ -5,8 +5,8 @@ This guide explains how to use the service page template system to create new se
 ## Overview
 
 The service page template system consists of:
-1. **Service Data Template** (`src/templates/service-data-template.ts`) - Defines the service information
-2. **Service Page Template** (`src/templates/service-page-template.astro`) - Defines the page structure
+1. **Service Data Template** (`src/templates/service-data-template.ts`) - Defines the service information structure
+2. **Dynamic Page Templates** - Service pages are automatically generated using the existing page templates
 3. **Dynamic Routing** - Automatically generates pages for services and service+city combinations
 
 ## Quick Start

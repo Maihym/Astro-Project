@@ -36,6 +36,39 @@ export const sampleService = {
     '/images/services/sample-service-whittier-1.jpg',
     '/images/services/sample-service-cerritos-1.jpg'
   ],
+  // Enhanced content fields
+  specifications: {
+    duration: '2-4 hours for standard installation',
+    complexity: 'Intermediate' as const,
+    permits: true,
+    warranty: '2-year warranty on all sample electrical work',
+    materials: ['High-quality electrical components', 'Code-compliant wiring', 'Safety equipment', 'Modern fixtures']
+  },
+  process: {
+    step1: 'Initial assessment and planning',
+    step2: 'Permit acquisition and scheduling',
+    step3: 'Professional installation',
+    step4: 'Testing and certification'
+  },
+  localExpertise: {
+    commonIssues: [
+      'Outdated electrical systems in older homes',
+      'Insufficient electrical capacity',
+      'Code compliance requirements',
+      'Local permit challenges'
+    ],
+    codeRequirements: 'California Electrical Code compliance with local permit requirements',
+    permitProcess: 'Building permits required for sample electrical work'
+  },
+  technicalDetails: {
+    voltage: '120V/240V electrical systems',
+    amperage: '15A to 200A panel capacity',
+    codeCompliance: ['NEC 2023', 'California Electrical Code', 'Local building codes']
+  },
+  cta: {
+    estimateText: 'Free estimates available for all sample electrical projects',
+    contactText: 'Call for personalized pricing based on your specific needs'
+  },
   seo: {
     title: `Sample Electrical Service in La Mirada, Whittier & Cerritos | ${companyInfo.name}`,
     description: 'Professional sample electrical service in La Mirada, Whittier, Cerritos, and surrounding areas. Licensed C-10 electrical contractor with 24/7 emergency service. Free estimates available.',

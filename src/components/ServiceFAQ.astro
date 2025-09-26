@@ -1,0 +1,150 @@
+---
+// Streamlined Service FAQ Component
+// Shows 3-4 service-specific questions with link to main FAQ
+
+export interface Props {
+  service?: {
+    title: string;
+    slug: string;
+  };
+}
+
+const { service } = Astro.props;
+
+// Service-specific FAQ data
+const getServiceFAQs = (serviceSlug: string) => {
+  const serviceFAQs: Record<string, Array<{question: string; answer: string}>> = {
+    'residential-wiring': [
+      {
+        question: "How long does residential wiring take?",
+        answer: "Residential wiring projects typically take 1-3 days for full rewiring, depending on the size of your home and complexity of the electrical system."
+      },
+      {
+        question: "Do I need permits for residential wiring?",
+        answer: "Yes, most residential wiring work requires permits. We handle all permit applications and inspections to ensure compliance with local building codes."
+      },
+      {
+        question: "What's included in your residential wiring warranty?",
+        answer: "We provide a 2-year warranty on all residential wiring work, covering both materials and labor for your peace of mind."
+      },
+      {
+        question: "Can you work with older homes?",
+        answer: "Yes, we specialize in working with older homes, including those with knob and tube wiring, aluminum wiring, or outdated electrical panels."
+      }
+    ],
+    'commercial-electrical': [
+      {
+        question: "What commercial electrical services do you provide?",
+        answer: "We provide comprehensive commercial electrical services including office building wiring, retail space electrical systems, industrial electrical systems, and lighting installations."
+      },
+      {
+        question: "Do you work on large commercial projects?",
+        answer: "Yes, we handle commercial projects of all sizes, from small office spaces to large industrial facilities with complex electrical systems."
+      },
+      {
+        question: "What are your commercial electrical rates?",
+        answer: "Commercial electrical rates vary based on project scope and complexity. We provide detailed estimates for all commercial projects during your free consultation."
+      },
+      {
+        question: "Do you provide 24/7 commercial electrical support?",
+        answer: "Yes, we provide 24/7 emergency electrical support for commercial clients to minimize downtime for your business operations."
+      }
+    ],
+    'emergency-repairs': [
+      {
+        question: "What constitutes an electrical emergency?",
+        answer: "Electrical emergencies include power outages, electrical fires, exposed wiring, burning smells, sparking outlets, or any situation that poses an immediate safety risk."
+      },
+      {
+        question: "How quickly can you respond to electrical emergencies?",
+        answer: "We provide 24/7 emergency service with an average response time of 60 minutes. Our emergency team is always on call and carries fully stocked service vehicles."
+      },
+      {
+        question: "Do emergency repairs cost more?",
+        answer: "Emergency service may include additional fees for after-hours response, but we provide transparent pricing and will explain all costs before beginning work."
+      },
+      {
+        question: "What should I do if I smell burning from electrical outlets?",
+        answer: "If you smell burning from electrical outlets, turn off the power to that circuit immediately and call us right away. This could indicate a serious electrical problem."
+      }
+    ],
+    'ev-charging-installation': [
+      {
+        question: "What types of EV charging stations do you install?",
+        answer: "We install Level 1 (120V), Level 2 (240V), and DC fast charging stations for both residential and commercial applications."
+      },
+      {
+        question: "How long does EV charging station installation take?",
+        answer: "EV charging station installation typically takes 2-4 hours for Level 2 stations, depending on your electrical system and installation requirements."
+      },
+      {
+        question: "Do I need permits for EV charging station installation?",
+        answer: "Yes, most EV charging station installations require permits. We handle all permit applications and inspections to ensure compliance with local codes."
+      },
+      {
+        question: "Can you help me choose the right EV charging station?",
+        answer: "Yes, we can help you choose the right EV charging solution based on your vehicle, electrical system, and charging needs."
+      }
+    ]
+  };
+
+  return serviceFAQs[serviceSlug] || [
+    {
+      question: "How quickly can you respond to electrical service requests?",
+      answer: "We typically respond to electrical service requests within 60 minutes, 24/7. Our team is strategically located to serve your area quickly."
+    },
+    {
+      question: "Do you offer free estimates?",
+      answer: "Yes, we provide free estimates for all electrical services. Our licensed electricians will assess your electrical needs and provide a detailed estimate with no obligation."
+    },
+    {
+      question: "Are you licensed and insured?",
+      answer: "Yes, First Electric LLC is a licensed C-10 electrical contractor (License #1120441) and fully insured. We are bonded and carry comprehensive liability insurance."
+    },
+    {
+      question: "What areas do you serve?",
+      answer: "We serve La Mirada, Whittier, Cerritos, Buena Park, La Habra, Santa Fe Springs, and surrounding areas in Los Angeles and Orange Counties."
+    }
+  ];
+};
+
+const serviceFAQs = getServiceFAQs(service?.slug || '');
+---
+
+<section class="py-16 px-4 bg-muted/30">
+  <div class="container mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-4 mb-8">
+        {serviceFAQs.map((faq: {question: string; answer: string}, index: number) => (
+          <div class="bg-card border rounded-lg">
+            <details class="group">
+              <summary class="flex items-center justify-between w-full px-6 py-4 text-left font-semibold text-lg cursor-pointer hover:bg-accent/50 transition-colors">
+                <span>{faq.question}</span>
+                <svg 
+                  class="w-5 h-5 text-muted-foreground transition-transform duration-200 group-open:rotate-180" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  viewBox="0 0 24 24"
+                >
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </summary>
+              <div class="px-6 pb-4 text-muted-foreground border-t">
+                <p class="pt-4">{faq.answer}</p>
+              </div>
+            </details>
+          </div>
+        ))}
+      </div>
+      
+      <!-- Link to main FAQ page -->
+      <div class="text-center">
+        <p class="text-muted-foreground mb-4">Have more questions?</p>
+        <a href="/electrical-faq" class="text-primary hover:text-primary/80 font-semibold">
+          View All Electrical FAQs →
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

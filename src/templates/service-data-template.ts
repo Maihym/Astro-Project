@@ -49,6 +49,40 @@ export const yourServiceName = {
     '/images/services/your-service-cerritos-1.jpg'   // Service image in Cerritos
   ],
   
+  // Enhanced content fields
+  specifications: {
+    duration: '2-4 hours for standard installation', // Typical project duration
+    complexity: 'Intermediate' as const, // 'Basic' | 'Intermediate' | 'Advanced'
+    permits: true, // Whether permits are required
+    warranty: '2-year warranty on all work', // Warranty information
+    materials: ['High-quality components', 'Code-compliant materials', 'Safety equipment'] // Materials used
+  },
+  process: {
+    step1: 'Initial assessment and planning', // First step in the process
+    step2: 'Permit acquisition and scheduling', // Second step
+    step3: 'Professional installation', // Third step
+    step4: 'Testing and certification' // Final step
+  },
+  localExpertise: {
+    commonIssues: [
+      'Common issue 1 in local areas', // Local-specific issues
+      'Common issue 2 in local areas', // Local-specific issues
+      'Common issue 3 in local areas', // Local-specific issues
+      'Common issue 4 in local areas' // Local-specific issues
+    ],
+    codeRequirements: 'California Electrical Code compliance with local permit requirements', // Code requirements
+    permitProcess: 'Building permits required for electrical work' // Permit process
+  },
+  technicalDetails: {
+    voltage: '120V/240V electrical systems', // Voltage specifications
+    amperage: '15A to 200A panel capacity', // Amperage specifications
+    codeCompliance: ['NEC 2023', 'California Electrical Code', 'Local building codes'] // Code compliance
+  },
+  cta: {
+    estimateText: 'Free estimates available for all projects', // Call-to-action for estimates
+    contactText: 'Call for personalized pricing based on your specific needs' // Contact call-to-action
+  },
+  
   // Enhanced SEO Configuration with Local Keywords
   seo: {
     title: `Your Service Title in La Mirada, Whittier & Cerritos | ${companyInfo.name}`, // Page title with local keywords

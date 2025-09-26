@@ -348,8 +348,8 @@ Create and add images to `public/images/services/`:
 ## 📞 **Support & Resources**
 
 ### **Template Files:**
-- `src/templates/service-page-template.astro` - Enhanced page template
-- `src/templates/service-data-template.ts` - Enhanced data template
+- `src/templates/service-data-template.ts` - Enhanced data template for creating new services
+- `src/pages/services/[service].astro` - Active service page template
 - `docs/ENHANCED_SERVICE_TEMPLATE_GUIDE.md` - This guide
 
 ### **Testing Tools:**

@@ -1,0 +1,504 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCompanyInfo, getContactInfo, getBusinessInfo } from '../config/business';
+import { getAllServices, getAllCities } from '../lib/data';
+import { electricalFAQs } from '../data/faqs/electrical-faqs';
+
+const companyInfo = getCompanyInfo();
+const contactInfo = getContactInfo();
+const businessInfo = getBusinessInfo();
+const services = getAllServices();
+const cities = getAllCities();
+
+// Get featured services for homepage
+const featuredServices = services.slice(0, 6);
+
+// Get customer reviews from cities data
+const customerReviews = [
+  {
+    text: "First Electric saved us during a power outage in La Mirada. They arrived within 45 minutes and restored our power safely. Professional and reasonably priced.",
+    author: "Sarah M.",
+    location: "La Mirada",
+    rating: 5
+  },
+  {
+    text: "Excellent service for our panel upgrade in Whittier. Clean, professional work completed on time. Highly recommend!",
+    author: "Mike R.",
+    location: "Whittier", 
+    rating: 5
+  },
+  {
+    text: "Needed rewiring for our 1965 La Mirada home. First Electric handled permits, inspection, everything. Professional and on schedule.",
+    author: "Jennifer C.",
+    location: "La Mirada",
+    rating: 5
+  },
+  {
+    text: "Quick response for emergency repair in Cerritos. Fixed our electrical issue efficiently and explained everything clearly.",
+    author: "David L.",
+    location: "Cerritos",
+    rating: 5
+  }
+];
+
+// Regional expertise content focused on La Mirada base with service areas
+const regionalExpertise = {
+  "La Mirada": {
+    title: "Our Home Base",
+    content: "Based in La Mirada, we understand the unique electrical challenges of Southern California homes. From 1960s homes near Biola University needing panel upgrades to modern developments requiring smart home installations, our local expertise ensures faster service and solutions that work.",
+    specialties: ["Local Permit Expertise", "Neighborhood Knowledge", "Fast Response Times", "Community Focus"]
+  },
+  "Historic Communities": {
+    title: "Historic Home Specialists", 
+    content: "Many Southern California communities feature historic homes requiring specialized electrical care. We balance preserving architectural character with modern electrical safety, ensuring code compliance while maintaining historic charm.",
+    specialties: ["Historic Preservation", "Code Compliance", "Character Maintenance", "Safety Upgrades"]
+  },
+  "Modern Communities": {
+    title: "Modern Technology Focus",
+    content: "Southern California leads in technology adoption. We specialize in smart home systems, EV charging stations, and energy-efficient solutions that match the region's progressive approach to technology and sustainability.",
+    specialties: ["Smart Home Tech", "EV Charging", "Energy Efficiency", "Home Automation"]
+  }
+};
+---
+
+<Layout 
+	title={`${companyInfo.name} - When Your Power Goes Out, We're the First Ones You Call`}
+	description="24/7 emergency electrical service in La Mirada and surrounding Southern California communities. Licensed C-10 electricians who respond fast and fix it right. Free estimates, 60-minute emergency response."
+		keywords={[
+			"electrician near me",
+			"emergency electrician",
+			"La Mirada electrician",
+			"Southern California electrician",
+			"electrical services La Mirada",
+			"24/7 electrical service",
+			"electrical repair",
+			"electrical emergency",
+			"licensed electrician",
+			"electrical panel upgrade"
+		]}
+	faqs={electricalFAQs}
+>
+	<main class="min-h-screen bg-background">
+		<!-- Hero Section - Above the Fold -->
+		<section class="py-20 px-4 relative bg-cover bg-center bg-no-repeat" style="background-image: url('/Full Van.jpg');">
+			<div class="absolute inset-0 bg-black/40"></div>
+			<div class="container mx-auto text-center relative z-10">
+				<h1 class="text-4xl md:text-6xl font-bold text-white mb-6 drop-shadow-lg">
+					When Your Power Goes Out,<br>We're the First Ones You Call
+				</h1>
+				<p class="text-xl text-white/90 mb-8 max-w-3xl mx-auto drop-shadow-md">
+					24/7 emergency electrical service in La Mirada and surrounding Southern California communities.<br>
+					Licensed C-10 electricians who respond fast and fix it right.<br>
+					Free estimates. 60-minute emergency response.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
+					<a 
+						href={`tel:${contactInfo.main.phone.replace(/\D/g, '')}`}
+						class="bg-red-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-red-700 transition-colors text-lg"
+					>
+						Call {contactInfo.main.phone}
+					</a>
+					<button 
+						class="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors text-lg"
+						onclick="openBooking('freeQuote')"
+					>
+						Get Free Quote
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Trust Badges - Above the Fold -->
+		<section class="py-8 px-4 bg-muted/30">
+			<div class="container mx-auto">
+				<div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+					<div class="flex flex-col items-center">
+						<div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mb-2">
+							<span class="text-white text-sm">✓</span>
+						</div>
+						<span class="text-sm font-medium">Licensed & Insured</span>
+						<span class="text-xs text-muted-foreground">C-10 #1120441</span>
+					</div>
+					<div class="flex flex-col items-center">
+						<div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mb-2">
+							<span class="text-white text-sm">⚡</span>
+						</div>
+						<span class="text-sm font-medium">24/7 Emergency</span>
+						<span class="text-xs text-muted-foreground">Always Available</span>
+					</div>
+					<div class="flex flex-col items-center">
+						<div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mb-2">
+							<span class="text-white text-sm">⏱</span>
+						</div>
+						<span class="text-sm font-medium">60-Min Response</span>
+						<span class="text-xs text-muted-foreground">Emergency Calls</span>
+					</div>
+					<div class="flex flex-col items-center">
+						<div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mb-2">
+							<span class="text-white text-sm">💰</span>
+						</div>
+						<span class="text-sm font-medium">Free Estimates</span>
+						<span class="text-xs text-muted-foreground">No Obligation</span>
+					</div>
+					<div class="flex flex-col items-center">
+						<div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mb-2">
+							<span class="text-white text-sm">🏠</span>
+						</div>
+						<span class="text-sm font-medium">Local Experts</span>
+						<span class="text-xs text-muted-foreground">Since 2024</span>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Services Overview - Above the Fold -->
+		<section class="py-16 px-4">
+			<div class="container mx-auto">
+				<h2 class="text-3xl font-bold text-center mb-4">Electrical Services You Can Count On</h2>
+				<p class="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+					From emergency repairs to complete electrical installations, our licensed La Mirada electricians provide reliable service throughout Southern California.
+				</p>
+				<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+					<div class="text-center p-4">
+						<div class="text-4xl mb-4">🚨</div>
+						<h3 class="font-semibold mb-2">Emergency Repairs</h3>
+						<p class="text-sm text-muted-foreground">Power outages, electrical fires, exposed wiring</p>
+					</div>
+					<div class="text-center p-4">
+						<div class="text-4xl mb-4">🏠</div>
+						<h3 class="font-semibold mb-2">Home Electrical</h3>
+						<p class="text-sm text-muted-foreground">Panel upgrades, rewiring, outlets, lighting</p>
+					</div>
+					<div class="text-center p-4">
+						<div class="text-4xl mb-4">🏢</div>
+						<h3 class="font-semibold mb-2">Commercial Services</h3>
+						<p class="text-sm text-muted-foreground">Business electrical, LED retrofits, maintenance</p>
+					</div>
+					<div class="text-center p-4">
+						<div class="text-4xl mb-4">🔌</div>
+						<h3 class="font-semibold mb-2">Smart Home</h3>
+						<p class="text-sm text-muted-foreground">EV chargers, automation, modern solutions</p>
+					</div>
+				</div>
+				<div class="text-center mt-8">
+					<a href="/services" class="inline-flex items-center text-primary hover:text-primary/80 font-medium">
+						View All Services →
+					</a>
+				</div>
+			</div>
+		</section>
+
+		<!-- Emergency CTA - Above the Fold -->
+		<section class="py-12 px-4 bg-red-50 dark:bg-red-950/20">
+			<div class="container mx-auto text-center">
+				<h2 class="text-2xl font-bold mb-4 text-red-800 dark:text-red-200">
+					🚨 Electrical Emergency? Call Now!
+				</h2>
+				<p class="text-red-700 dark:text-red-300 mb-6">
+					Don't risk your safety. Our La Mirada-based electricians respond 24/7 throughout the region.<br>
+					Available nights, weekends, and holidays.
+				</p>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<a 
+						href={`tel:${contactInfo.main.phone.replace(/\D/g, '')}`}
+						class="bg-red-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors"
+					>
+						Call {contactInfo.main.phone}
+					</a>
+					<button 
+						class="border border-red-600 text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-red-600 hover:text-white transition-colors"
+						onclick="openBooking('serviceCall')"
+					>
+						Emergency Service
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Expandable Content Sections - Below the Fold -->
+		<section class="py-16 px-4 bg-muted/30">
+			<div class="container mx-auto max-w-4xl">
+				
+				<!-- Local Expertise Accordion -->
+				<div class="mb-8">
+					<details class="group bg-card rounded-lg border shadow-sm">
+						<summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-muted/50 transition-colors">
+							<div class="flex items-center gap-3">
+								<span class="text-2xl">🏘️</span>
+								<div>
+									<h3 class="text-xl font-semibold">Why Southern California Chooses First Electric</h3>
+									<p class="text-sm text-muted-foreground">Local La Mirada experts serving the region</p>
+								</div>
+							</div>
+							<span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+						</summary>
+						<div class="px-6 pb-6">
+							<div class="grid md:grid-cols-3 gap-6 mt-4">
+								{Object.entries(regionalExpertise).map(([key, data]) => (
+									<div class="border rounded-lg p-4">
+										<h4 class="font-semibold mb-2">{data.title}</h4>
+										<p class="text-sm text-muted-foreground mb-3">{data.content}</p>
+										<div class="space-y-1">
+											{data.specialties.map((specialty) => (
+												<div class="flex items-center gap-2 text-xs">
+													<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+													<span>{specialty}</span>
+												</div>
+											))}
+										</div>
+									</div>
+								))}
+							</div>
+							<div class="mt-6 p-4 bg-muted rounded-lg">
+								<h4 class="font-semibold mb-2">Regional Permit & Code Expertise</h4>
+								<p class="text-sm text-muted-foreground">
+									Based in La Mirada, our C-10 licensed electricians understand Southern California electrical codes and permit requirements. We work with local building departments throughout the region, ensuring your electrical work passes inspection the first time.
+								</p>
+							</div>
+						</div>
+					</details>
+				</div>
+
+				<!-- FAQ Accordion -->
+				<div class="mb-8">
+					<details class="group bg-card rounded-lg border shadow-sm">
+						<summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-muted/50 transition-colors">
+							<div class="flex items-center gap-3">
+								<span class="text-2xl">❓</span>
+								<div>
+									<h3 class="text-xl font-semibold">Frequently Asked Questions</h3>
+									<p class="text-sm text-muted-foreground">Get answers to common electrical questions</p>
+								</div>
+							</div>
+							<span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+						</summary>
+						<div class="px-6 pb-6">
+							<div class="space-y-4 mt-4">
+								{electricalFAQs.map((faq, index) => (
+									<div class="border-b pb-4 last:border-b-0">
+										<h4 class="font-medium mb-2">{faq.question}</h4>
+										<p class="text-sm text-muted-foreground">{faq.answer}</p>
+									</div>
+								))}
+							</div>
+						</div>
+					</details>
+				</div>
+
+				<!-- Customer Reviews Accordion -->
+				<div class="mb-8">
+					<details class="group bg-card rounded-lg border shadow-sm">
+						<summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-muted/50 transition-colors">
+							<div class="flex items-center gap-3">
+								<span class="text-2xl">⭐</span>
+								<div>
+									<h3 class="text-xl font-semibold">What Our Customers Say</h3>
+									<p class="text-sm text-muted-foreground">Real reviews from local customers</p>
+								</div>
+							</div>
+							<span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+						</summary>
+						<div class="px-6 pb-6">
+							<div class="grid md:grid-cols-2 gap-4 mt-4">
+								{customerReviews.map((review, index) => (
+									<div class="border rounded-lg p-4">
+										<div class="flex items-center mb-2">
+											<div class="flex text-yellow-400 text-sm">
+												{'★'.repeat(review.rating)}
+											</div>
+										</div>
+										<p class="text-sm text-muted-foreground mb-3">"{review.text}"</p>
+										<div class="text-xs">
+											<span class="font-medium">{review.author}</span>
+											<span class="text-muted-foreground"> - {review.location}</span>
+										</div>
+									</div>
+								))}
+							</div>
+							<div class="text-center mt-6">
+								<a href="#" class="inline-flex items-center text-primary hover:text-primary/80 font-medium text-sm">
+									View More Reviews →
+								</a>
+							</div>
+						</div>
+					</details>
+				</div>
+
+				<!-- All Services Accordion -->
+				<div class="mb-8">
+					<details class="group bg-card rounded-lg border shadow-sm">
+						<summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-muted/50 transition-colors">
+							<div class="flex items-center gap-3">
+								<span class="text-2xl">⚡</span>
+								<div>
+									<h3 class="text-xl font-semibold">All Our Electrical Services</h3>
+									<p class="text-sm text-muted-foreground">Complete list of services we provide</p>
+								</div>
+							</div>
+							<span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+						</summary>
+						<div class="px-6 pb-6">
+							<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+								{services.map((service) => (
+									<a href={`/services/${service.slug}`} class="group block">
+										<div class="border rounded-lg p-4 hover:border-primary/50 transition-colors">
+											<div class="flex items-center gap-3 mb-2">
+												<span class="text-2xl">{service.icon}</span>
+												<h4 class="font-medium group-hover:text-primary transition-colors">{service.title}</h4>
+											</div>
+											<p class="text-sm text-muted-foreground">{service.shortDescription}</p>
+										</div>
+									</a>
+								))}
+							</div>
+						</div>
+					</details>
+				</div>
+
+				<!-- Service Areas Accordion -->
+				<div class="mb-8">
+					<details class="group bg-card rounded-lg border shadow-sm">
+						<summary class="flex items-center justify-between p-6 cursor-pointer hover:bg-muted/50 transition-colors">
+							<div class="flex items-center gap-3">
+								<span class="text-2xl">📍</span>
+								<div>
+									<h3 class="text-xl font-semibold">Our Service Area</h3>
+									<p class="text-sm text-muted-foreground">Professional electrical services throughout Southern California</p>
+								</div>
+							</div>
+							<span class="text-2xl group-open:rotate-45 transition-transform">+</span>
+						</summary>
+						<div class="px-6 pb-6">
+							<div class="grid md:grid-cols-3 gap-4 mt-4">
+								{cities.map((city) => (
+									<a href={`/cities/${city.slug}`} class="group block">
+										<div class="border rounded-lg p-4 hover:border-primary/50 transition-colors">
+											<h4 class="font-medium mb-2 group-hover:text-primary transition-colors">{city.name}, {city.stateAbbr}</h4>
+											<p class="text-sm text-muted-foreground mb-3">{city.shortDescription}</p>
+											<div class="space-y-1">
+												<div class="flex items-center gap-2 text-xs">
+													<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+													<span>Population: {city.population}</span>
+												</div>
+												<div class="flex items-center gap-2 text-xs">
+													<span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+													<span>{city.serviceAreas.length} service areas</span>
+												</div>
+											</div>
+										</div>
+									</a>
+								))}
+							</div>
+						</div>
+					</details>
+				</div>
+
+			</div>
+		</section>
+
+		<!-- Final CTA Section -->
+		<section class="py-16 px-4 bg-primary text-primary-foreground">
+			<div class="container mx-auto text-center">
+				<h2 class="text-3xl font-bold mb-4">Ready to Experience the First Electric Difference?</h2>
+				<p class="text-xl mb-8 opacity-90 max-w-3xl mx-auto">
+					Don't let electrical problems stress you out. Based in La Mirada, our licensed electricians provide reliable service throughout Southern California. Whether it's an emergency or planned electrical work, we're here to help.
+				</p>
+				<div class="flex flex-col items-center gap-4 mb-8">
+					<div class="flex flex-wrap justify-center gap-6 text-sm opacity-90">
+						<span>✓ Licensed</span>
+						<span>✓ Insured</span>
+						<span>✓ Local</span>
+						<span>✓ Available 24/7</span>
+					</div>
+				</div>
+				<div class="flex flex-col sm:flex-row gap-4 justify-center">
+					<button 
+						class="bg-background text-foreground px-8 py-3 rounded-lg font-semibold hover:bg-background/90 transition-colors"
+						onclick="openBooking('freeQuote')"
+					>
+						Get Free Quote
+					</button>
+					<a 
+						href={`tel:${contactInfo.main.phone.replace(/\D/g, '')}`}
+						class="border border-primary-foreground text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary-foreground/10 transition-colors"
+					>
+						Call {contactInfo.main.phone}
+					</a>
+					<button 
+						class="border border-primary-foreground text-primary-foreground px-8 py-3 rounded-lg font-semibold hover:bg-primary-foreground/10 transition-colors"
+						onclick="openBooking('serviceCall')"
+					>
+						Schedule Service
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- Inline Booking Form Integration -->
+		<div id="booking-container" class="hidden">
+			<!-- This will be populated by the booking system when opened -->
+		</div>
+	</main>
+
+	<script>
+		// Booking modal functionality
+		let currentBookingModal = null;
+
+		// Define openBooking on window
+		(window as any).openBooking = function(serviceType: string = 'freeQuote') {
+			const bookingUrls: Record<string, string> = {
+				freeQuote: 'https://calendar.app.google/KA9sCmb1mqv8m7TH6',
+				serviceCall: 'https://calendar.app.google/3S63HemGbJM3BXsj7',
+				inspection: 'https://calendar.app.google/kuoM2qEwm2osbUBi6'
+			};
+			
+			const url = bookingUrls[serviceType] || bookingUrls.freeQuote;
+			window.open(url, '_blank');
+		};
+
+		// Enhanced Analytics tracking for the new homepage
+		if (typeof (window as any).gtag !== 'undefined') {
+			// Track homepage engagement
+			(window as any).gtag('event', 'homepage_view', {
+				page_title: 'Homepage - Hybrid Design',
+				page_location: window.location.href
+			});
+
+			// Track accordion expansions
+			document.querySelectorAll('details').forEach((details, index) => {
+				details.addEventListener('toggle', function(this: HTMLDetailsElement) {
+					if (this.open) {
+						const summaryElement = this.querySelector('summary h3');
+						const summaryText = summaryElement?.textContent || '';
+						(window as any).gtag('event', 'accordion_expand', {
+							section_name: summaryText,
+							section_index: index
+						});
+					}
+				});
+			});
+
+			// Track service clicks
+			document.querySelectorAll('a[href^="/services/"]').forEach(link => {
+				link.addEventListener('click', function(this: HTMLAnchorElement) {
+					const serviceSlug = this.href.split('/services/')[1];
+					(window as any).gtag('event', 'service_click', {
+						service_slug: serviceSlug,
+						click_location: 'homepage'
+					});
+				});
+			});
+
+			// Track city clicks
+			document.querySelectorAll('a[href^="/cities/"]').forEach(link => {
+				link.addEventListener('click', function(this: HTMLAnchorElement) {
+					const citySlug = this.href.split('/cities/')[1];
+					(window as any).gtag('event', 'city_click', {
+						city_slug: citySlug,
+						click_location: 'homepage'
+					});
+				});
+			});
+		}
+	</script>
+</Layout>
